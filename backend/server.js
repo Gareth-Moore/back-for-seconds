@@ -15,10 +15,14 @@ connectDB();
 // start express
 const app = express();
 
-app.get("/", (req, res) => res.send("Server is ready..."));
+// parse to json
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // parse form data
 
 // routes
 app.use("/api/users", userRoutes);
+
+app.get("/", (req, res) => res.send("Server is ready..."));
 
 // error handlers
 app.use(routeNotFound);

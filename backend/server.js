@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import connectDB from "./config/db.js";
 dotenv.config();
 import userRoutes from "./routes/userRoutes.js";
 import {
@@ -7,6 +8,9 @@ import {
   globalErrorHandler,
 } from "./middleware/errorMiddleware.js";
 const port = process.env.PORT || 5000;
+
+// connect to database
+connectDB();
 
 // start express
 const app = express();

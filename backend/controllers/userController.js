@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import { simulateError } from "../utils/errorUtils.js";
 import User from "../models/userModel.js";
+import generateToken from "../utils/generateToken.js";
 
 // description:   Auth user / set token
 // method:        POST
@@ -18,7 +19,6 @@ const authUser = asyncHandler(async (req, res) => {
 // route:         /api/users
 // access:        Public
 const registerUser = asyncHandler(async (req, res) => {
-  console.log("register controller START");
   simulateError(false);
 
   const { name, email, password } = req.body;
@@ -37,6 +37,7 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
+    generateToken(res, user.id);
     // 201 fulfilled request & data created
     res.status(201).json({
       _id: user._id,

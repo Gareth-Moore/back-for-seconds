@@ -87,7 +87,12 @@ const logoutUser = asyncHandler(async (req, res) => {
 const getUserProfile = asyncHandler(async (req, res) => {
   simulateError(false);
 
-  res.status(200).json({ message: "Get user profile" });
+  const user = {
+    name: req.user.name,
+    id: req.user._id,
+    email: req.user.email,
+  };
+  res.status(200).json(user);
 });
 
 // description:   Update user profile
@@ -97,7 +102,27 @@ const getUserProfile = asyncHandler(async (req, res) => {
 const updateUserProfile = asyncHandler(async (req, res) => {
   simulateError(false);
 
-  res.status(200).json({ message: "Update user profile" });
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.mail;
+
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    const updateUser = await user.save();
+
+    res.status(200).json({
+      _id: updateUser._id,
+      name: updateUser.name,
+      email: updateUser.email,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
 });
 
 export {

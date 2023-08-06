@@ -1,4 +1,4 @@
-"use client";
+("use client");
 
 import {
   Box,
@@ -16,6 +16,10 @@ import {
   useBreakpointValue,
   useDisclosure,
   Link,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -23,9 +27,30 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
+import { useSelector, useDispatch } from "react-redux";
+import { useLogoutMutation } from "../slices/userApiSlice";
+import { logout } from "../slices/authSlice";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
+  const { userInfo } = useSelector((state: any) => state.auth);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [logoutApiCall] = useLogoutMutation();
+
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall({}).unwrap();
+      dispatch(logout({}));
+      navigate("/");
+    } catch (err: any) {
+      toast.error(err?.message || "An error occured while logging out");
+    }
+  };
 
   return (
     <Box>
@@ -74,29 +99,77 @@ export default function WithSubnavigation() {
           direction={"row"}
           spacing={6}
         >
-          <Button
-            as={"a"}
-            fontSize={"sm"}
-            fontWeight={400}
-            variant={"link"}
-            href={"/login"}
-          >
-            Sign In
-          </Button>
-          <Button
-            as={"a"}
-            display={{ base: "none", md: "inline-flex" }}
-            fontSize={"sm"}
-            fontWeight={600}
-            color={"white"}
-            bg={"red.400"}
-            href={"/register"}
-            _hover={{
-              bg: "red.300",
-            }}
-          >
-            Sign Up
-          </Button>
+          {userInfo ? (
+            <Flex align={"center"} gap={5}>
+              <Text
+                as={"a"}
+                fontSize={"sm"}
+                fontWeight={400}
+                variant={"link"}
+                href={"/login"}
+              >
+                {userInfo.name}
+              </Text>
+              {/* <Button
+                as={"a"}
+                display={{ base: "none", md: "inline-flex" }}
+                fontSize={"sm"}
+                fontWeight={600}
+                color={"white"}
+                bg={"red.400"}
+                href={"/profile"}
+                _hover={{
+                  bg: "red.300",
+                }}
+              >
+                User
+              </Button> */}
+              <Menu>
+                <MenuButton
+                  bg={"red.400"}
+                  color={"white"}
+                  fontSize={"sm"}
+                  fontWeight={600}
+                  as={Button}
+                  rightIcon={<ChevronDownIcon />}
+                >
+                  Profile
+                </MenuButton>
+                <MenuList>
+                  <MenuItem as="a" href="/profile">
+                    Profile
+                  </MenuItem>
+                  <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+                </MenuList>
+              </Menu>
+            </Flex>
+          ) : (
+            <>
+              <Button
+                as={"a"}
+                fontSize={"sm"}
+                fontWeight={400}
+                variant={"link"}
+                href={"/login"}
+              >
+                Sign In
+              </Button>
+              <Button
+                as={"a"}
+                display={{ base: "none", md: "inline-flex" }}
+                fontSize={"sm"}
+                fontWeight={600}
+                color={"white"}
+                bg={"red.400"}
+                href={"/register"}
+                _hover={{
+                  bg: "red.300",
+                }}
+              >
+                Sign Up
+              </Button>
+            </>
+          )}
         </Stack>
       </Flex>
 

@@ -19,7 +19,8 @@ const authUser = asyncHandler(async (req, res) => {
     generateToken(res, user._id);
     res.status(201).json({
       _id: user._id,
-      name: user.name,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
     });
   } else {
@@ -35,7 +36,7 @@ const authUser = asyncHandler(async (req, res) => {
 const registerUser = asyncHandler(async (req, res) => {
   simulateError(false);
 
-  const { name, email, password } = req.body;
+  const { firstName, lastName, email, password } = req.body;
 
   const userExists = await User.findOne({ email });
 
@@ -45,7 +46,8 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   const user = await User.create({
-    name,
+    firstName,
+    lastName,
     email,
     password,
   });
@@ -55,7 +57,8 @@ const registerUser = asyncHandler(async (req, res) => {
     // 201 fulfilled request & data created
     res.status(201).json({
       _id: user._id,
-      name: user.name,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
     });
   } else {
@@ -88,7 +91,8 @@ const getUserProfile = asyncHandler(async (req, res) => {
   simulateError(false);
 
   const user = {
-    name: req.user.name,
+    firstName: req.user.firstName,
+    lastName: req.user.lastName,
     id: req.user._id,
     email: req.user.email,
   };
@@ -105,7 +109,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
-    user.name = req.body.name || user.name;
+    user.firstName = req.body.firstName || user.firstName;
+    user.lastName = req.body.lastName || user.lastName;
     user.email = req.body.email || user.mail;
 
     if (req.body.password) {
@@ -116,7 +121,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
     res.status(200).json({
       _id: updateUser._id,
-      name: updateUser.name,
+      firstName: updateUser.firstName,
+      lastName: updateUser.lastName,
       email: updateUser.email,
     });
   } else {

@@ -16,8 +16,13 @@ import {
   useColorModeValue,
   Link,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setCredentials } from "../slices/authSlice";
+import { toast } from "react-toastify";
+import { useRegisterMutation } from "../slices/userApiSlice";
 
 const SignupScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,10 +31,29 @@ const SignupScreen = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { userInfo } = useSelector((state: any) => state.auth);
+
+  const [register, { isLoading }] = useRegisterMutation();
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [navigate, userInfo]);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("hello there");
     console.log(email, password, firstName, lastName);
+    try {
+      const res = await register({ firstName, lastName, email, password });
+      dispatch(setCredentials({ ...res }));
+      navigate("/");
+    } catch (err: any) {
+      toast.error(err?.data?.message || err.error);
+    }
   };
   return (
     <Box

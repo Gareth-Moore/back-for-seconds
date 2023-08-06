@@ -108,7 +108,7 @@ export default function WithSubnavigation() {
                 variant={"link"}
                 href={"/login"}
               >
-                {userInfo.name}
+                {userInfo.firstName}
               </Text>
               {/* <Button
                 as={"a"}

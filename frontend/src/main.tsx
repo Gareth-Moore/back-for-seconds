@@ -12,6 +12,8 @@ import {
 import SignupScreen from "./screens/SignupScreen.tsx";
 import LoginSceen from "./screens/LoginScreen.tsx";
 import HomeScreen from "./screens/HomeScreen.tsx";
+import store from "./store.ts";
+import { Provider } from "react-redux";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,8 +35,10 @@ const theme = extendTheme({
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      {/* <App />  */}
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        {/* <App />  */}
+        <RouterProvider router={router} />
+      </Provider>
     </ChakraProvider>
   </React.StrictMode>
 );

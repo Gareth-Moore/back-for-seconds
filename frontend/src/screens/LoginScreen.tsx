@@ -18,6 +18,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/authSlice";
+import { toast } from "react-toastify";
 
 const LoginSceen = () => {
   const [email, setEmail] = useState("");
@@ -47,7 +48,7 @@ const LoginSceen = () => {
 
       navigate("/");
     } catch (err: any) {
-      console.log(err?.data?.message || err.error);
+      toast.error(err?.data?.message || err.error);
     }
   };
 

@@ -13,16 +13,42 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useLoginMutation } from "../slices/userApiSlice";
+import { setCredentials } from "../slices/authSlice";
 
 const LoginSceen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [login, { isLoading }] = useLoginMutation();
+
+  const { userInfo } = useSelector((state: any) => state.auth);
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [navigate, userInfo]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("hello there");
-    console.log(email, password);
+    try {
+      const res = await login({
+        email,
+        password,
+      }).unwrap();
+
+      dispatch(setCredentials({ ...res }));
+
+      navigate("/");
+    } catch (err: any) {
+      console.log(err?.data?.message || err.error);
+    }
   };
 
   return (

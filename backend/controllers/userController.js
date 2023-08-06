@@ -101,7 +101,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
 
 // description:   Update user profile
 // method:        PUT
-// route:         /api/profile
+// route:         /api/users/profile
 // access:        Private
 const updateUserProfile = asyncHandler(async (req, res) => {
   simulateError(false);

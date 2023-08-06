@@ -1,5 +1,9 @@
-"use client";
-
+import { FormEvent, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setCredentials } from "../slices/authSlice";
+import { toast } from "react-toastify";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {
   Flex,
   Box,
@@ -14,47 +18,47 @@ import {
   Heading,
   Text,
   useColorModeValue,
-  Link,
 } from "@chakra-ui/react";
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setCredentials } from "../slices/authSlice";
-import { toast } from "react-toastify";
-import { useRegisterMutation } from "../slices/userApiSlice";
+import { useUpdateUserMutation } from "../slices/userApiSlice";
 
-const SignupScreen = () => {
+const ProfileScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state: any) => state.auth);
 
-  const [register] = useRegisterMutation();
+  const [updateProfile] = useUpdateUserMutation();
 
   useEffect(() => {
-    if (userInfo) {
-      navigate("/");
-    }
-  }, [navigate, userInfo]);
+    setFirstName(userInfo.firstName);
+    setLastName(userInfo.lastName);
+    setEmail(userInfo.email);
+  }, [userInfo.setName, userInfo.setEmail]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(email, password, firstName, lastName);
+  const submitHandler = async (event: FormEvent) => {
+    event.preventDefault();
     try {
-      const res = await register({ firstName, lastName, email, password });
+      const res = await updateProfile({
+        _id: userInfo._id,
+        firstName,
+        lastName,
+        email,
+        password,
+      }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate("/");
-    } catch (err: any) {
-      toast.error(err?.data?.message || err.error);
-    }
+      toast.success("User profile updated!");
+      console.log(res.firstName);
+    } catch (error) {}
+    console.log("submit");
   };
+
   return (
     <Box
       width="100%"
@@ -65,12 +69,12 @@ const SignupScreen = () => {
       backgroundRepeat="no-repeat"
     >
       <Flex
-        // minH={"100vh"}
+        height={"calc(100vh - 60px)"}
         align={"center"}
         justify={"center"}
         bg={"transparent"}
       >
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitHandler}>
           <Stack spacing={8} mx={"auto"} maxW={"lg"} py={10} px={6}>
             <Box
               rounded={"lg"}
@@ -80,10 +84,10 @@ const SignupScreen = () => {
             >
               <Stack align={"center"} pb={10}>
                 <Heading fontSize={"4xl"} textAlign={"center"}>
-                  Let's get cooking!
+                  Update Profile
                 </Heading>
                 <Text fontSize={"lg"} color={"gray.600"}>
-                  Sign up now to explore our recipes
+                  Change your profile details below
                 </Text>
               </Stack>
               <Stack spacing={4}>
@@ -144,16 +148,8 @@ const SignupScreen = () => {
                     }}
                     type="submit"
                   >
-                    Sign up
+                    Update Info
                   </Button>
-                </Stack>
-                <Stack pt={6}>
-                  <Text align={"center"}>
-                    Already a user?{" "}
-                    <Link href="/register" color={"blue.400"}>
-                      Login
-                    </Link>
-                  </Text>
                 </Stack>
               </Stack>
             </Box>
@@ -164,4 +160,4 @@ const SignupScreen = () => {
   );
 };
 
-export default SignupScreen;
+export default ProfileScreen;

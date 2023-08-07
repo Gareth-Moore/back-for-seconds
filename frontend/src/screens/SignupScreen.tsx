@@ -46,9 +46,13 @@ const SignupScreen = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(email, password, firstName, lastName);
     try {
-      const res = await register({ firstName, lastName, email, password });
+      const res = await register({
+        firstName,
+        lastName,
+        email,
+        password,
+      }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate("/");
     } catch (err: any) {
@@ -150,7 +154,7 @@ const SignupScreen = () => {
                 <Stack pt={6}>
                   <Text align={"center"}>
                     Already a user?{" "}
-                    <Link href="/register" color={"blue.400"}>
+                    <Link href="/login" color={"blue.400"}>
                       Login
                     </Link>
                   </Text>

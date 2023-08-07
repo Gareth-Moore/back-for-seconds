@@ -2,6 +2,7 @@
 
 import {
   Box,
+  Image,
   Flex,
   Text,
   IconButton,
@@ -85,7 +86,9 @@ export default function WithSubnavigation() {
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
           >
-            <Link href="/">Logo</Link>
+            <Link href="/">
+              <Image src="src/assets/logo.png" w={"48px"} />
+            </Link>
           </Text>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
@@ -102,6 +105,7 @@ export default function WithSubnavigation() {
           {userInfo ? (
             <Flex align={"center"} gap={5}>
               <Text
+                display={{ base: "none", md: "block" }}
                 as={"a"}
                 fontSize={"sm"}
                 fontWeight={400}
@@ -110,20 +114,7 @@ export default function WithSubnavigation() {
               >
                 {userInfo.firstName}
               </Text>
-              {/* <Button
-                as={"a"}
-                display={{ base: "none", md: "inline-flex" }}
-                fontSize={"sm"}
-                fontWeight={600}
-                color={"white"}
-                bg={"red.400"}
-                href={"/profile"}
-                _hover={{
-                  bg: "red.300",
-                }}
-              >
-                User
-              </Button> */}
+
               <Menu>
                 <MenuButton
                   bg={"red.400"}

@@ -95,10 +95,11 @@ const LoginSceen = () => {
                   <Stack
                     direction={{ base: "column", sm: "row" }}
                     align={"start"}
-                    justify={"space-between"}
                   >
-                    <Checkbox>Remember me</Checkbox>
-                    <Text color={"blue.400"}>Forgot password?</Text>
+                    <Text>New user? </Text>
+                    <Text color={"blue.400"} as={"a"} href="/register">
+                      Register here
+                    </Text>
                   </Stack>
                   <Button
                     bg={"red.400"}

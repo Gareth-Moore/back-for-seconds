@@ -340,7 +340,7 @@ const NAV_ITEMS: Array<NavItem> = [
       {
         label: "Explore popular recipes",
         subLabel: "A mix of all the trendiest recipes",
-        href: "#",
+        href: "/explore-recipes",
       },
       {
         label: "Expore by cuisine",

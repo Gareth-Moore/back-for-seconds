@@ -16,6 +16,7 @@ import ProfileScreen from "./screens/ProfileScreen.tsx";
 import store from "./store.ts";
 import { Provider } from "react-redux";
 import PrivateRoute from "./components/PrivateRoute.tsx";
+import ExploreRecipes from "./screens/ExploreRecipes.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
       {/* Private routes */}
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfileScreen />} />
+        <Route path="/explore-recipes" element={<ExploreRecipes />} />
       </Route>
     </Route>
   )
@@ -40,12 +42,10 @@ const theme = extendTheme({
 });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <ChakraProvider theme={theme}>
-      <Provider store={store}>
-        {/* <App />  */}
-        <RouterProvider router={router} />
-      </Provider>
-    </ChakraProvider>
-  </React.StrictMode>
+  <ChakraProvider theme={theme}>
+    <Provider store={store}>
+      {/* <App />  */}
+      <RouterProvider router={router} />
+    </Provider>
+  </ChakraProvider>
 );

@@ -335,41 +335,41 @@ interface NavItem {
 
 const NAV_ITEMS: Array<NavItem> = [
   {
-    label: "Inspiration",
+    label: "Explore recipes",
     children: [
       {
-        label: "Explore Design Work",
-        subLabel: "Trending Design to inspire you",
+        label: "Explore popular recipes",
+        subLabel: "A mix of all the trendiest recipes",
         href: "#",
       },
       {
-        label: "New & Noteworthy",
-        subLabel: "Up-and-coming Designers",
+        label: "Expore by cuisine",
+        subLabel: "Description",
         href: "#",
       },
     ],
   },
   {
-    label: "Find Work",
+    label: "Search ingredients",
     children: [
       {
-        label: "Job Board",
-        subLabel: "Find your dream design job",
+        label: "Search by ingredient",
+        subLabel: "description",
         href: "#",
       },
       {
-        label: "Freelance Projects",
-        subLabel: "An exclusive list for contract work",
+        label: "",
+        subLabel: "",
         href: "#",
       },
     ],
   },
   {
-    label: "Learn Design",
+    label: "My Dashboard",
     href: "#",
   },
   {
-    label: "Hire Designers",
+    label: "Upload Recipe",
     href: "#",
   },
 ];

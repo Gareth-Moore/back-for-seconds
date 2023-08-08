@@ -83,7 +83,11 @@ const SignupScreen = () => {
               p={8}
             >
               <Stack align={"center"} pb={10}>
-                <Heading fontSize={"4xl"} textAlign={"center"}>
+                <Heading
+                  fontSize={"4xl"}
+                  textAlign={"center"}
+                  fontFamily={"'Courier Prime', monospace"}
+                >
                   Let's get cooking!
                 </Heading>
                 <Text fontSize={"lg"} color={"gray.600"}>

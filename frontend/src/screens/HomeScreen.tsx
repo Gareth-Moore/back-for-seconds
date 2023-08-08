@@ -30,6 +30,7 @@ const HomeScreen = () => {
       >
         <VStack padding={10} align={"flex-start"}>
           <Text
+            fontFamily={"'Courier Prime', monospace"}
             textAlign={"left"}
             fontWeight={700}
             lineHeight={1.2}

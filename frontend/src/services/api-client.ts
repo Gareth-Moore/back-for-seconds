@@ -3,6 +3,6 @@ import axios from "axios";
 export default axios.create({
   baseURL: "https://api.spoonacular.com",
   params: {
-    apiKey: "80c718f1a7c74661b43a3940d3a793ca",
+    apiKey: "3b1b5dadf8504e8b9423e69403c22708",
   },
 });

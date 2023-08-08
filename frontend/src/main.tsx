@@ -40,6 +40,8 @@ const theme = extendTheme({
     body: "Montserrat, sans-serif",
   },
 });
+// font-family: 'Courier Prime', monospace;
+// font-family: 'Montserrat', sans-serif;
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <ChakraProvider theme={theme}>

@@ -69,7 +69,12 @@ const LoginSceen = () => {
             p={8}
           >
             <Stack align={"center"} pb={5}>
-              <Heading fontSize={"4xl"}>Welcome back!</Heading>
+              <Heading
+                fontSize={"4xl"}
+                fontFamily={"'Courier Prime', monospace"}
+              >
+                Welcome back!
+              </Heading>
               <Text fontSize={"lg"} color={"gray.600"}>
                 Sign in and let's get cooking{" "}
               </Text>

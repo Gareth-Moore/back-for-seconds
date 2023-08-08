@@ -54,7 +54,7 @@ export default function WithSubnavigation() {
   };
 
   return (
-    <Box>
+    <Box position={"fixed"} top={0} left={0} right={0}>
       <Flex
         bg={useColorModeValue("white", "red.800")}
         color={useColorModeValue("gray.600", "white")}
@@ -230,7 +230,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
       display={"block"}
       p={2}
       rounded={"md"}
-      _hover={{ bg: useColorModeValue("red.50", "gray.900") }}
+      _hover={{ bg: useColorModeValue("red.500", "gray.900") }}
     >
       <Stack direction={"row"} align={"center"}>
         <Box>
@@ -343,9 +343,9 @@ const NAV_ITEMS: Array<NavItem> = [
         href: "/explore-recipes",
       },
       {
-        label: "Expore by cuisine",
-        subLabel: "Description",
-        href: "#",
+        label: "Search for dish",
+        subLabel: "Find the recipe you're looking for",
+        href: "/search-recipes",
       },
     ],
   },

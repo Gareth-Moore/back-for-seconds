@@ -8,6 +8,7 @@ import {
   Button,
   HStack,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const HomeScreen = () => {
   return (
@@ -51,22 +52,22 @@ const HomeScreen = () => {
           </Text>
           <Stack direction={"row"}>
             <Button
-              as={"a"}
+              as={Link}
               minWidth={"150px"}
               bg={"red.400"}
               color={"white"}
               _hover={{ bg: "red.500" }}
-              href="/login"
+              to="/login"
             >
               Sign in
             </Button>
             <Button
-              as={"a"}
+              as={Link}
               minWidth={"150px"}
               bg={"gray.300"}
               color={"white"}
               _hover={{ bg: "gray.500" }}
-              href={"/register"}
+              to={"/register"}
             >
               Register
             </Button>

@@ -11,6 +11,7 @@ import { useState } from "react";
 import apiClient from "../services/api-client";
 import BasicCard from "../components/BasicCard";
 import BasicCardGrid from "../components/BasicCardGrid";
+import RecipeCard from "../components/RecipeCard";
 
 interface Results {
   results: Recipe[];
@@ -72,6 +73,7 @@ const SearchRecipes = () => {
           />
         </InputGroup>
       </form>
+      <RecipeCard></RecipeCard>
       <BasicCardGrid isLoading={isLoading}>
         {recipes &&
           recipes.results.map((recipe, index) => (

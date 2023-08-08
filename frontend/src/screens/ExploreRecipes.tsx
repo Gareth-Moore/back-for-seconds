@@ -15,7 +15,7 @@ const ExploreRecipes = () => {
         setIsLoading(true);
         const response = await apiClient.get<ApiResponse>("/recipes/random", {
           params: {
-            number: 12,
+            number: 10,
           },
         });
         setRecipes(response.data.recipes);

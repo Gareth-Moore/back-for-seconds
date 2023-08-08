@@ -16,7 +16,6 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
-  Link,
   Menu,
   MenuButton,
   MenuItem,
@@ -31,7 +30,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../slices/userApiSlice";
 import { logout } from "../slices/authSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function WithSubnavigation() {
@@ -86,9 +85,9 @@ export default function WithSubnavigation() {
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
           >
-            <Link href="/">
+            <RouterLink to="/">
               <Image src="src/assets/logo.png" w={"48px"} />
-            </Link>
+            </RouterLink>
           </Text>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
@@ -106,11 +105,11 @@ export default function WithSubnavigation() {
             <Flex align={"center"} gap={5}>
               <Text
                 display={{ base: "none", md: "block" }}
-                as={"a"}
+                as={RouterLink}
                 fontSize={"sm"}
                 fontWeight={400}
                 variant={"link"}
-                href={"/login"}
+                to={"/login"}
               >
                 {userInfo.firstName}
               </Text>
@@ -123,11 +122,12 @@ export default function WithSubnavigation() {
                   fontWeight={600}
                   as={Button}
                   rightIcon={<ChevronDownIcon />}
+                  _hover={{ bg: "red.500" }}
                 >
                   Profile
                 </MenuButton>
                 <MenuList>
-                  <MenuItem as="a" href="/profile">
+                  <MenuItem as={RouterLink} to="/profile">
                     Profile
                   </MenuItem>
                   <MenuItem onClick={logoutHandler}>Logout</MenuItem>
@@ -137,22 +137,22 @@ export default function WithSubnavigation() {
           ) : (
             <>
               <Button
-                as={"a"}
+                as={RouterLink}
                 fontSize={"sm"}
                 fontWeight={400}
                 variant={"link"}
-                href={"/login"}
+                to={"/login"}
               >
                 Sign In
               </Button>
               <Button
-                as={"a"}
+                as={RouterLink}
                 display={{ base: "none", md: "inline-flex" }}
                 fontSize={"sm"}
                 fontWeight={600}
                 color={"white"}
                 bg={"red.400"}
-                href={"/register"}
+                to={"/register"}
                 _hover={{
                   bg: "red.300",
                 }}
@@ -173,7 +173,7 @@ export default function WithSubnavigation() {
 
 const DesktopNav = () => {
   const linkColor = useColorModeValue("gray.600", "gray.200");
-  const linkHoverColor = useColorModeValue("gray.800", "white");
+  const linkHoverColor = useColorModeValue("red.400", "white");
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
   return (
@@ -183,9 +183,9 @@ const DesktopNav = () => {
           <Popover trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
               <Box
-                as="a"
+                as={RouterLink}
                 p={2}
-                href={navItem.href ?? "#"}
+                to={navItem.href ?? "#"}
                 fontSize={"sm"}
                 fontWeight={500}
                 color={linkColor}
@@ -224,19 +224,19 @@ const DesktopNav = () => {
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
   return (
     <Box
-      as="a"
-      href={href}
+      as={RouterLink}
+      to={href}
       role={"group"}
       display={"block"}
       p={2}
       rounded={"md"}
-      _hover={{ bg: useColorModeValue("red.500", "gray.900") }}
+      _hover={{ bg: useColorModeValue("red.400", "gray.900") }}
     >
       <Stack direction={"row"} align={"center"}>
         <Box>
           <Text
             transition={"all .3s ease"}
-            _groupHover={{ color: "red.400" }}
+            _groupHover={{ color: "white" }}
             fontWeight={500}
           >
             {label}
@@ -277,11 +277,11 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Stack spacing={4} onClick={children && onToggle}>
+    <Stack spacing={-1} onClick={children && onToggle}>
       <Box
         py={2}
-        as="a"
-        href={href ?? "#"}
+        as={RouterLink}
+        to={href ?? "#"}
         justifyContent="space-between"
         alignItems="center"
         _hover={{
@@ -307,7 +307,6 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
 
       <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
         <Stack
-          mt={2}
           pl={4}
           borderLeft={1}
           borderStyle={"solid"}
@@ -316,7 +315,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
         >
           {children &&
             children.map((child) => (
-              <Box as="a" key={child.label} py={2} href={child.href}>
+              <Box as={RouterLink} key={child.label} py={2} to={child.href}>
                 {child.label}
               </Box>
             ))}

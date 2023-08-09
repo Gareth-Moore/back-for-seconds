@@ -1,2 +1,1 @@
 rating system for recipe cards
-fix navbar responsiveness at md size display

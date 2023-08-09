@@ -49,7 +49,6 @@ const theme = extendTheme({
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <ChakraProvider theme={theme}>
     <Provider store={store}>
-      {/* <App />  */}
       <RouterProvider router={router} />
     </Provider>
   </ChakraProvider>

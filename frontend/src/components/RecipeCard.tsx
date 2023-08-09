@@ -220,9 +220,13 @@ const RecipeCard = () => {
                 <ListItem key={index} pl={5}>
                   <ListIcon as={AiFillCaretRight} color={"red.400"} />{" "}
                   {useMetric
-                    ? `${Math.floor(ingredient.measures.metric.amount)} ${
-                        ingredient.measures.metric.unitShort
-                      } ${ingredient.originalName}`
+                    ? `${
+                        ingredient.measures.metric.amount % 1 === 0
+                          ? ingredient.measures.metric.amount
+                          : ingredient.measures.metric.amount.toFixed(2)
+                      } ${ingredient.measures.metric.unitShort} ${
+                        ingredient.originalName
+                      }`
                     : `${
                         ingredient.measures.us.amount % 1 === 0
                           ? ingredient.measures.us.amount

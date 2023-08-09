@@ -334,7 +334,7 @@ interface NavItem {
 
 const NAV_ITEMS: Array<NavItem> = [
   {
-    label: "Explore recipes",
+    label: "Explore",
     children: [
       {
         label: "Explore popular recipes",
@@ -349,26 +349,13 @@ const NAV_ITEMS: Array<NavItem> = [
     ],
   },
   {
-    label: "Search ingredients",
+    label: "Shopping List",
     children: [
       {
         label: "Search by ingredient",
         subLabel: "description",
         href: "#",
       },
-      {
-        label: "",
-        subLabel: "",
-        href: "#",
-      },
     ],
-  },
-  {
-    label: "Inspect Recipe",
-    href: "/inspect-recipe",
-  },
-  {
-    label: "Upload Recipe",
-    href: "#",
   },
 ];

@@ -350,12 +350,10 @@ const NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: "Shopping List",
-    children: [
-      {
-        label: "Search by ingredient",
-        subLabel: "description",
-        href: "#",
-      },
-    ],
+    href: "/inspect-recipe",
+  },
+  {
+    label: "My recipes",
+    href: "/my-recipes",
   },
 ];

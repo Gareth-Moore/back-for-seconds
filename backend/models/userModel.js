@@ -19,6 +19,14 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    recipesById: {
+      type: Array,
+      required: false,
+    },
+    shoppingList: {
+      type: Array,
+      required: false,
+    },
   },
   {
     timestamps: true,

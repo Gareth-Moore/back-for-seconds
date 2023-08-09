@@ -1,1 +1,20 @@
 rating system for recipe cards
+
+
+things to do:
+    create slice for saved recipes. Save recipes to user info, update schema, 
+
+my recipes
+    page will include all the recipes liked/saved by the user. 
+        To do this:
+        1. save recipe id's to userInfo on the backend
+        2. create page and cards
+        3. using state / redux get the id's and render them on the screens
+        4. doesn't actually sound that bad
+
+shopping list
+    page will include a list of ingredient to buy, bit like a cart
+        To do this:
+        1. create a new collection in the backend
+        2. create shopping list page
+        3. add / remove shopping list items from collection 

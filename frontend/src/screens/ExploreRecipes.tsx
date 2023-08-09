@@ -6,7 +6,7 @@ import BasicCard from "../components/BasicCard";
 import BasicCardGrid from "../components/BasicCardGrid";
 
 const ExploreRecipes = () => {
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [recipes, setRecipes] = useState<BasicRecipe[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

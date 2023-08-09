@@ -1,4 +1,7 @@
 import { VStack, Text, Image, Flex } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
+import { setId } from "../slices/currentRecipeSlice";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   id: number;
@@ -8,6 +11,14 @@ interface Props {
 }
 
 const BasicCard = ({ id, title, image }: Props) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    dispatch(setId(id));
+    navigate("/inspect-recipe");
+  };
+
   return (
     <VStack
       key={id}
@@ -16,6 +27,7 @@ const BasicCard = ({ id, title, image }: Props) => {
       bg={"white"}
       borderBottomLeftRadius={15}
       border={"1px solid lightgray"}
+      onClick={handleClick}
     >
       <Image src={image} h={"300px"} objectFit={"cover"} />
       <Flex h={"70px"} align={"center"}>

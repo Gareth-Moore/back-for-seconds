@@ -364,8 +364,8 @@ const NAV_ITEMS: Array<NavItem> = [
     ],
   },
   {
-    label: "My Dashboard",
-    href: "#",
+    label: "Inspect Recipe",
+    href: "/inspect-recipe",
   },
   {
     label: "Upload Recipe",

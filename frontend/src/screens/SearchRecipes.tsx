@@ -11,10 +11,9 @@ import { useState } from "react";
 import apiClient from "../services/api-client";
 import BasicCard from "../components/BasicCard";
 import BasicCardGrid from "../components/BasicCardGrid";
-import RecipeCard from "../components/RecipeCard";
 
 interface Results {
-  results: Recipe[];
+  results: BasicRecipe[];
 }
 
 const SearchRecipes = () => {
@@ -25,7 +24,6 @@ const SearchRecipes = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const searchConcat = search.split(" ").join(",");
-    console.log(searchConcat);
     const fetchRecipes = async () => {
       try {
         setIsLoading(true);
@@ -49,7 +47,6 @@ const SearchRecipes = () => {
     fetchRecipes();
   };
 
-  console.log("re-rendered");
   return (
     <>
       <Header></Header>
@@ -74,7 +71,6 @@ const SearchRecipes = () => {
           />
         </InputGroup>
       </form>
-      <RecipeCard></RecipeCard>
       <BasicCardGrid isLoading={isLoading}>
         {recipes &&
           recipes.results.map((recipe, index) => (

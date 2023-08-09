@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
@@ -18,6 +17,7 @@ import { Provider } from "react-redux";
 import PrivateRoute from "./components/PrivateRoute.tsx";
 import ExploreRecipes from "./screens/ExploreRecipes.tsx";
 import SearchRecipes from "./screens/SearchRecipes.tsx";
+import InspectRecipe from "./screens/InspectRecipe.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +31,7 @@ const router = createBrowserRouter(
         <Route path="/profile" element={<ProfileScreen />} />
         <Route path="/explore-recipes" element={<ExploreRecipes />} />
         <Route path="/search-recipes" element={<SearchRecipes />} />
+        <Route path="/inspect-recipe" element={<InspectRecipe />} />
       </Route>
     </Route>
   )

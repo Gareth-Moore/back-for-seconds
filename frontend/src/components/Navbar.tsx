@@ -53,7 +53,7 @@ export default function WithSubnavigation() {
   };
 
   return (
-    <Box position={"fixed"} top={0} left={0} right={0}>
+    <Box position={"fixed"} top={0} left={0} right={0} zIndex={9999999}>
       <Flex
         bg={useColorModeValue("white", "red.800")}
         color={useColorModeValue("gray.600", "white")}

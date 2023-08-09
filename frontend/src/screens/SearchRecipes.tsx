@@ -62,7 +62,8 @@ const SearchRecipes = () => {
           <Input
             borderRadius={20}
             placeholder="Enter search"
-            variant="filled"
+            variant="outline"
+            bg="white"
             display="block"
             onChange={(e) => setSearch(e.target.value)}
           />

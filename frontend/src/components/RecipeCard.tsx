@@ -31,6 +31,10 @@ const RecipeCard = () => {
 
   const { recipe } = useSelector((state: any) => state.recipe);
 
+  const handleSave = () => {
+    console.log(recipe);
+  };
+
   console.log(recipe);
   return (
     <>
@@ -181,6 +185,7 @@ const RecipeCard = () => {
           </VStack>
           <HStack justify={"center"} mt={8}>
             <Button
+              onClick={handleSave}
               w={"40%"}
               bg={"red.400"}
               color={"white"}

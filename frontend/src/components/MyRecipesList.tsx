@@ -10,7 +10,7 @@ import {
   useMediaQuery,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { BsPlusSquare } from "react-icons/bs";
+import { AiOutlineMinusSquare, AiOutlinePlusSquare } from "react-icons/ai";
 
 const MyRecipesList = () => {
   //   const isListOpenInitial = useBreakpointValue({ base: false, lg: true });
@@ -38,21 +38,20 @@ const MyRecipesList = () => {
         px={{ base: 0, lg: 5 }}
         align={{ base: "center", lg: "start" }}
       >
-        <HStack
-          align={"center"}
-          spacing={5}
-          cursor="pointer"
-          onClick={toggleList}
-        >
+        <HStack spacing={5} cursor="pointer" onClick={toggleList}>
           <Heading
             fontSize={{ base: "lg" }}
             fontFamily={"'Courier Prime', monospace"}
-            textAlign="center"
+            mt={1}
           >
             My Recipes
           </Heading>
           <Show below="lg">
-            <BsPlusSquare size="24px" />
+            {isListOpen ? (
+              <AiOutlineMinusSquare size="24px" />
+            ) : (
+              <AiOutlinePlusSquare size="24px" />
+            )}
           </Show>
         </HStack>
         <Box
@@ -80,7 +79,33 @@ const MyRecipesList = () => {
                   overflow: "hidden",
                 }}
               >
-                Recipe is here for alll time and willnever go away
+                Vegetable Springrolls
+              </ListItem>
+              <ListItem
+                padding={2}
+                overflow={"none"}
+                whiteSpace={"nowrap"}
+                style={{
+                  textOverflow: "ellipsis",
+                  maxWidth: "100%",
+                  display: "block",
+                  overflow: "hidden",
+                }}
+              >
+                Tacos
+              </ListItem>
+              <ListItem
+                padding={2}
+                overflow={"none"}
+                whiteSpace={"nowrap"}
+                style={{
+                  textOverflow: "ellipsis",
+                  maxWidth: "100%",
+                  display: "block",
+                  overflow: "hidden",
+                }}
+              >
+                Macaroni and cheese
               </ListItem>
             </List>
           </Collapse>

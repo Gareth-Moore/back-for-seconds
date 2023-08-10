@@ -10,7 +10,7 @@ import {
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { BsFillPersonVcardFill } from "react-icons/bs";
 
-const Logo = (props: any) => {
+const Logo = () => {
   return <Image src={"src/assets/logo.png"} w="48px" />;
 };
 

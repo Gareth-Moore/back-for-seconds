@@ -19,7 +19,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    recipesById: {
+    recipes: {
       type: Array,
       required: false,
     },

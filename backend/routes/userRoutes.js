@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  addUserRecipe,
   authUser,
   getUserProfile,
   logoutUser,
@@ -17,5 +18,6 @@ router
   .route("/profile")
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile);
+router.route("/recipe").all(protect, addUserRecipe);
 
 export default router;

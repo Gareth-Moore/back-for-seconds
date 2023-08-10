@@ -54,7 +54,6 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (user) {
     generateToken(res, user.id);
-    // 201 fulfilled request & data created
     res.status(201).json({
       _id: user._id,
       firstName: user.firstName,
@@ -131,10 +130,37 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
+// description:   Add recipe to user
+// method:        PUT
+// route:         /api/users/recipes
+// access:        Private
+const addUserRecipe = asyncHandler(async (req, res) => {
+  simulateError(false);
+  console.log(req.body.recipe);
+
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    const newRecipe = {
+      id: req.body.recipeId,
+      name: req.body.recipeName,
+    };
+    user.recipes.push(newRecipe);
+
+    const updateUser = await user.save();
+
+    res.status(200).json({ recipes: updateUser.recipes });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
 export {
   authUser,
   registerUser,
   logoutUser,
   getUserProfile,
   updateUserProfile,
+  addUserRecipe,
 };

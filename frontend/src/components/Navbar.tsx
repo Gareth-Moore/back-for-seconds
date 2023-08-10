@@ -350,7 +350,7 @@ const NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: "Shopping List",
-    href: "/inspect-recipe",
+    href: "/shopping-list",
   },
   {
     label: "My recipes",

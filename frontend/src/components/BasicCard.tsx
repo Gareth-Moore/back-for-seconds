@@ -1,7 +1,6 @@
 import { VStack, Text, Image, Flex } from "@chakra-ui/react";
-import { useDispatch } from "react-redux";
-import { setId } from "../slices/currentRecipeSlice";
 import { useNavigate } from "react-router-dom";
+import useRecipeById from "../hooks/useRecipeById";
 
 interface Props {
   id: number;
@@ -11,12 +10,12 @@ interface Props {
 }
 
 const BasicCard = ({ id, title, image }: Props) => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const fetchRecipeById = useRecipeById(id);
 
-  const handleClick = () => {
-    dispatch(setId(id));
-    navigate("/inspect-recipe");
+  const handleClick = async () => {
+    await fetchRecipeById();
+    navigate("/my-recipes");
   };
 
   return (

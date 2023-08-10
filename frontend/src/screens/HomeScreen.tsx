@@ -14,7 +14,7 @@ const HomeScreen = () => {
   return (
     <Flex
       width="100%"
-      height="calc(100% - 60px)"
+      height="calc(100vh - 133px)"
       backgroundImage="url('./src/assets/background-hero.jpg')"
       backgroundPosition="center"
       backgroundSize="cover"

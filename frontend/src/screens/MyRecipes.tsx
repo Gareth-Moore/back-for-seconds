@@ -1,5 +1,13 @@
+import { Grid, Box } from "@chakra-ui/react";
+import SidebarGrid from "../components/SidebarGrid";
+import RecipeCard from "../components/RecipeCard";
+
 const MyRecipes = () => {
-  return <div>MyRecipes</div>;
+  return (
+    <SidebarGrid>
+      <RecipeCard />
+    </SidebarGrid>
+  );
 };
 
 export default MyRecipes;

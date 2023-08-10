@@ -1,10 +1,10 @@
 import SidebarGrid from "../components/SidebarGrid";
-import RecipeCardCopy from "../components/RecipeCardCopy";
+import RecipeCard from "../components/RecipeCard";
 
 const MyRecipes = () => {
   return (
     <SidebarGrid>
-      <RecipeCardCopy />
+      <RecipeCard />
     </SidebarGrid>
   );
 };

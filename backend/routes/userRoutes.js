@@ -3,6 +3,7 @@ import {
   addUserRecipe,
   authUser,
   getUserProfile,
+  getUserRecipes,
   logoutUser,
   registerUser,
   updateUserProfile,
@@ -18,6 +19,9 @@ router
   .route("/profile")
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile);
-router.route("/recipe").all(protect, addUserRecipe);
+router
+  .route("/recipe")
+  .put(protect, addUserRecipe)
+  .get(protect, getUserRecipes);
 
 export default router;

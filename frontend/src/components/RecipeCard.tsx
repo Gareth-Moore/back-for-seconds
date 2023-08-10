@@ -22,20 +22,35 @@ import {
 } from "react-icons/ai";
 import { LuVegan, LuWheat } from "react-icons/lu";
 import { GiCow } from "react-icons/gi";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
+import { toast } from "react-toastify";
+import { useUpdateRecipeMutation } from "../slices/userApiSlice";
 
 const RecipeCard = () => {
   const [useMetric, setUseMetric] = useState(true);
   const createMarkup = (html: any) => ({ __html: html });
 
   const { recipe } = useSelector((state: any) => state.recipe);
+  const { userInfo } = useSelector((state: any) => state.auth);
 
-  const handleSave = () => {
-    console.log(recipe);
+  const [updateProfile] = useUpdateRecipeMutation();
+
+  const handleSave = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      const res = await updateProfile({
+        _id: userInfo._id,
+        recipeId: recipe.id,
+        recipeName: recipe.title,
+      }).unwrap();
+      console.log(res);
+      toast.success("New recipe added!");
+    } catch (error) {
+      toast.error("Oops, something went wrong!");
+    }
   };
 
-  console.log(recipe);
   return (
     <>
       <VStack

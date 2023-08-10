@@ -11,15 +11,19 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { AiOutlineMinusSquare, AiOutlinePlusSquare } from "react-icons/ai";
+import apiClient from "../services/api-client";
+import { useGetUserRecipesMutation } from "../slices/userApiSlice";
+import { toast } from "react-toastify";
+
+interface UserRecipes {
+  id: number;
+  name: string;
+}
 
 const MyRecipesList = () => {
-  //   const isListOpenInitial = useBreakpointValue({ base: false, lg: true });
   const [isLargerThanLg] = useMediaQuery("(min-width: 992px)");
-
-  console.log("media query", isLargerThanLg);
-
+  const [recipeList, setRecipeList] = useState<UserRecipes[]>([]);
   const [isListOpen, setIsListOpen] = useState(false);
-  console.log("hook", isListOpen);
 
   const toggleList = () => {
     if (!isLargerThanLg) {
@@ -27,7 +31,27 @@ const MyRecipesList = () => {
     }
   };
 
+  const [getRecipes] = useGetUserRecipesMutation();
+
+  const fetchRecipes = async () => {
+    try {
+      const res = await getRecipes({});
+      if ("data" in res) {
+        const data = res.data;
+        setRecipeList(data.recipes);
+        console.log(data.recipes);
+      } else if ("error" in res) {
+        const errorMessage = res.error.toString(); // Convert error to string
+        toast.error(errorMessage);
+      }
+    } catch (error: any) {
+      toast.error("Oops, something went wrong!");
+      console.log(error.message);
+    }
+  };
+
   useEffect(() => {
+    fetchRecipes();
     setIsListOpen(isLargerThanLg);
   }, [isLargerThanLg]);
 
@@ -68,45 +92,23 @@ const MyRecipesList = () => {
               borderRadius={10}
               p={3}
             >
-              <ListItem
-                padding={2}
-                overflow={"none"}
-                whiteSpace={"nowrap"}
-                style={{
-                  textOverflow: "ellipsis",
-                  maxWidth: "100%",
-                  display: "block",
-                  overflow: "hidden",
-                }}
-              >
-                Vegetable Springrolls
-              </ListItem>
-              <ListItem
-                padding={2}
-                overflow={"none"}
-                whiteSpace={"nowrap"}
-                style={{
-                  textOverflow: "ellipsis",
-                  maxWidth: "100%",
-                  display: "block",
-                  overflow: "hidden",
-                }}
-              >
-                Tacos
-              </ListItem>
-              <ListItem
-                padding={2}
-                overflow={"none"}
-                whiteSpace={"nowrap"}
-                style={{
-                  textOverflow: "ellipsis",
-                  maxWidth: "100%",
-                  display: "block",
-                  overflow: "hidden",
-                }}
-              >
-                Macaroni and cheese
-              </ListItem>
+              {recipeList &&
+                recipeList.map((value, index) => (
+                  <ListItem
+                    key={index}
+                    padding={2}
+                    overflow={"none"}
+                    whiteSpace={"nowrap"}
+                    style={{
+                      textOverflow: "ellipsis",
+                      maxWidth: "100%",
+                      display: "block",
+                      overflow: "hidden",
+                    }}
+                  >
+                    {value.name}
+                  </ListItem>
+                ))}
             </List>
           </Collapse>
         </Box>

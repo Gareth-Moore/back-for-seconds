@@ -156,6 +156,23 @@ const addUserRecipe = asyncHandler(async (req, res) => {
   }
 });
 
+// description:   Add recipe to user
+// method:        GET
+// route:         /api/users/recipes
+// access:        Private
+const getUserRecipes = asyncHandler(async (req, res) => {
+  simulateError(false);
+
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    res.status(200).json({ recipes: user.recipes });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
 export {
   authUser,
   registerUser,
@@ -163,4 +180,5 @@ export {
   getUserProfile,
   updateUserProfile,
   addUserRecipe,
+  getUserRecipes,
 };

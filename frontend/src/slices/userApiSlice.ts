@@ -38,6 +38,12 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    getUserRecipes: builder.mutation({
+      query: () => ({
+        url: `${USERS_URL}/recipe`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -47,4 +53,5 @@ export const {
   useRegisterMutation,
   useUpdateUserMutation,
   useUpdateRecipeMutation,
+  useGetUserRecipesMutation,
 } = usersApiSlice;

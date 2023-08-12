@@ -1,12 +1,4 @@
-import {
-  Box,
-  Heading,
-  VStack,
-  Text,
-  Textarea,
-  Button,
-  Divider,
-} from "@chakra-ui/react";
+import { Box, Heading, VStack, Text, Textarea, Button } from "@chakra-ui/react";
 import { useState } from "react";
 
 const Comments = () => {
@@ -36,12 +28,11 @@ const Comments = () => {
           <form>
             <Textarea
               width="100%"
-              minH="unset" // Remove the minimum height restriction
-              resize="none" // Disable resizing
+              minH="unset"
+              resize="none"
               placeholder="What did you think of this recipe?"
               height={"120px"}
               sx={{
-                // Override Chakra UI styles
                 minHeight: "unset !important",
                 overflow: "auto !important",
               }}

@@ -1,7 +1,9 @@
 rating system for recipe cards
 
-My recipes page 
-DONE
-
 RecipeCard
-    comment on card
+    create new Schema {id: recipeID, comment: string, user_id: _id}
+    PUT request (create comment)
+    DELETE request (delete comment) 
+    GET request (get comments)
+    create new slice? Possibly, do i want the recipe comments to be saved on the actual page? Could add it to the current recipe. Which would be easier.
+    display 

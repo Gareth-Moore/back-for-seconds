@@ -1,11 +1,12 @@
 import { useDispatch } from "react-redux";
 import { setId, setRecipe } from "../slices/currentRecipeSlice";
 import apiClient from "../services/api-client";
+import { toast } from "react-toastify";
 
 const useRecipeById = (_id: number) => {
   const dispatch = useDispatch();
 
-  const fetchRecipeById = async () => {
+  const fetchRecipeById = async (_id: number) => {
     try {
       const res = await apiClient.get<FullRecipe>(
         `/recipes/${_id}/information`,
@@ -18,7 +19,7 @@ const useRecipeById = (_id: number) => {
       dispatch(setId(_id));
       dispatch(setRecipe({ ...res.data }));
     } catch (error: any) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   };
   return fetchRecipeById;

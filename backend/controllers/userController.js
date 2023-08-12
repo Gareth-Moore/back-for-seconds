@@ -140,6 +140,12 @@ const addUserRecipe = asyncHandler(async (req, res) => {
 
   const user = await User.findById(req.user._id);
 
+  user.recipes.map((value) => {
+    if (value.id === req.body.recipeId) {
+      res.status(400).json({ message: "Recipe is already saved" });
+    }
+    return value.id;
+  });
   if (user) {
     const newRecipe = {
       id: req.body.recipeId,

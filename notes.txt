@@ -1,6 +1,8 @@
 rating system for recipe cards
 
-My recipes page:
-    need to save recipe (save recipe on user as id and name)
-    populate list with saved recipes (on load send get request to mongoDB)
-    if user clicks a recipe send a get request to Spoonacular
+My recipes page 
+    select recipe by clicking on it
+    delete recipe
+
+RecipeCard
+    comment on card

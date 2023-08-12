@@ -1,6 +1,7 @@
 import { VStack, Text, Image, Flex } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import useRecipeById from "../hooks/useRecipeById";
+import { toast } from "react-toastify";
 
 interface Props {
   id: number;
@@ -14,7 +15,11 @@ const BasicCard = ({ id, title, image }: Props) => {
   const fetchRecipeById = useRecipeById(id);
 
   const handleClick = async () => {
-    await fetchRecipeById();
+    try {
+      await fetchRecipeById(id);
+    } catch (error: any) {
+      toast.error(error.message);
+    }
     navigate("/my-recipes");
   };
 

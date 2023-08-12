@@ -1,6 +1,7 @@
 import { Grid, Box } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import MyRecipesList from "./MyRecipesList";
+import Comments from "./Comments";
 
 interface Props {
   children: ReactNode;
@@ -18,7 +19,11 @@ const SidebarGrid = ({ children }: Props) => {
       >
         <MyRecipesList />
       </Box>
-      <Box minHeight={"calc(100vh - 60px)"}>{children}</Box>
+      <Box minHeight={"calc(100vh - 60px)"}>
+        {children}
+
+        <Comments />
+      </Box>
     </Grid>
   );
 };

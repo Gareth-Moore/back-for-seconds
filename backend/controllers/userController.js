@@ -140,13 +140,17 @@ const addUserRecipe = asyncHandler(async (req, res) => {
 
   const user = await User.findById(req.user._id);
 
-  user.recipes.map((value) => {
+  let recipeExists = false;
+  for (const value of user.recipes) {
     if (value.id === req.body.recipeId) {
-      res.status(400).json({ message: "Recipe is already saved" });
+      recipeExists = true;
+      break;
     }
-    return value.id;
-  });
-  if (user) {
+  }
+
+  if (recipeExists) {
+    res.status(400).json({ message: "Recipe is already saved" });
+  } else if (user) {
     const newRecipe = {
       id: req.body.recipeId,
       name: req.body.recipeName,
@@ -164,7 +168,7 @@ const addUserRecipe = asyncHandler(async (req, res) => {
 
 // description:   Add recipe to user
 // method:        GET
-// route:         /api/users/recipes
+// route:         /api/users/recipe
 // access:        Private
 const getUserRecipes = asyncHandler(async (req, res) => {
   simulateError(false);
@@ -179,6 +183,26 @@ const getUserRecipes = asyncHandler(async (req, res) => {
   }
 });
 
+// description:   Delete user recipe
+// method:        DELETE
+// route:         /api/users/recipe
+// access:        Private
+const deleteUserRecipes = asyncHandler(async (req, res) => {
+  simulateError(false);
+
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    const updatedArray = req.user.recipes;
+    user.recipes = updatedArray.filter((obj) => obj.id != req.body.id);
+    const updateUser = await user.save();
+    res.status(200).json(updateUser.recipes);
+  } else {
+    res.status(404);
+    throw new Error("Could not delete files");
+  }
+});
+
 export {
   authUser,
   registerUser,
@@ -187,4 +211,5 @@ export {
   updateUserProfile,
   addUserRecipe,
   getUserRecipes,
+  deleteUserRecipes,
 };

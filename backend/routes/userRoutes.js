@@ -2,6 +2,7 @@ import express from "express";
 import {
   addUserRecipe,
   authUser,
+  deleteUserRecipes,
   getUserProfile,
   getUserRecipes,
   logoutUser,
@@ -22,6 +23,7 @@ router
 router
   .route("/recipe")
   .put(protect, addUserRecipe)
-  .get(protect, getUserRecipes);
+  .get(protect, getUserRecipes)
+  .delete(protect, deleteUserRecipes);
 
 export default router;

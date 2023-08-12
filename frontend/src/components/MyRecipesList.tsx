@@ -20,6 +20,7 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import { setRecipes } from "../slices/currentRecipesSlice";
+import { useDeleteUserRecipeMutation } from "../slices/userApiSlice";
 import useRecipeById from "../hooks/useRecipeById";
 
 interface UserRecipes {
@@ -30,7 +31,6 @@ interface UserRecipes {
 const MyRecipesList = () => {
   const [isLargerThanLg] = useMediaQuery("(min-width: 992px)");
   const [isListOpen, setIsListOpen] = useState(false);
-  const { recipe } = useSelector((state: any) => state.recipe);
   const { recipes } = useSelector((state: any) => state.recipes);
   const fetchRecipeById = useRecipeById(-1);
   const [isHovered, setIsHovered] = useState(-1);
@@ -44,6 +44,7 @@ const MyRecipesList = () => {
   };
 
   const [getRecipes] = useGetUserRecipesMutation();
+  const [deleteUserRecipe] = useDeleteUserRecipeMutation();
 
   const fetchRecipes = async () => {
     try {
@@ -70,15 +71,27 @@ const MyRecipesList = () => {
     }
   };
 
-  const onDelete = (
+  const onDelete = async (
     event: React.MouseEvent<SVGElement, MouseEvent>,
     id: number
   ) => {
     event.stopPropagation();
-    console.log(id);
+    try {
+      const res = await deleteUserRecipe({ id });
+      if ("data" in res) {
+        const data = res.data;
+        dispatch(setRecipes(data));
+        toast.warning("Recipe has been deleted");
+      } else if ("error" in res) {
+        const errorMessage = res.error.toString(); // Convert error to string
+        toast.error(errorMessage);
+      }
+      console.log(res);
+    } catch (error) {}
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetchRecipes();
     setIsListOpen(isLargerThanLg);
   }, [isLargerThanLg]);
@@ -121,7 +134,7 @@ const MyRecipesList = () => {
                 borderRadius={10}
                 p={3}
               >
-                {recipes.length > 0 ? (
+                {recipes?.length > 0 ? (
                   recipes.map((value: UserRecipes, index: number) => (
                     <ListItem
                       key={index}

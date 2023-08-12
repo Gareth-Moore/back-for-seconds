@@ -1,8 +1,7 @@
 rating system for recipe cards
 
 My recipes page 
-    select recipe by clicking on it
-    delete recipe
+DONE
 
 RecipeCard
     comment on card

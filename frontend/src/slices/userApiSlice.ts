@@ -44,6 +44,13 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    deleteUserRecipe: builder.mutation({
+      query: (data) => ({
+        url: `${USERS_URL}/recipe`,
+        method: "DELETE",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -54,4 +61,5 @@ export const {
   useUpdateUserMutation,
   useUpdateRecipeMutation,
   useGetUserRecipesMutation,
+  useDeleteUserRecipeMutation,
 } = usersApiSlice;

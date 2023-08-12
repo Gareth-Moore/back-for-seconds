@@ -6,7 +6,17 @@ import Comment from "../models/commentModel.js";
 // method:        DELETE
 // route:         /api/comments
 // access:        Private
-const getUserComments = asyncHandler(async (req, res) => {});
+const getUserComments = asyncHandler(async (req, res) => {
+  const { recipeId } = req.body;
+
+  const getComment = await Comment.findOne({ recipeId });
+
+  if (getComment) {
+    res.status(200).json({ comments: getComment.comments });
+  } else {
+    res.status(404).json({ message: "No comments found" });
+  }
+});
 
 // description:   Add a users comment
 // method:        PUT
@@ -32,13 +42,33 @@ const addUserComment = asyncHandler(async (req, res) => {
     });
     res.status(200).json(updateComments);
   }
-  res.status(200).json();
 });
 
 // description:   Delete a users comment
 // method:        DELETE
 // route:         /api/comments
 // access:        Private
-const deleteUserComment = asyncHandler(async (req, res) => {});
+const deleteUserComment = asyncHandler(async (req, res) => {
+  const { recipeId, comment: userComment, userId } = req.body;
+
+  const serverComment = await Comment.findOne({ recipeId });
+
+  if (serverComment) {
+    try {
+      serverComment.comments = serverComment.comments.filter(
+        (comment) =>
+          comment.userId !== userId || userComment !== comment.comment
+      );
+
+      const updatedComments = await serverComment.save();
+
+      res.status(200).json({ updatedComments });
+    } catch (error) {
+      res.status(404).json({ message: "Comment not deleted" });
+    }
+  } else {
+    res.status(404).json({ message: "No comments found" });
+  }
+});
 
 export { getUserComments, addUserComment, deleteUserComment };

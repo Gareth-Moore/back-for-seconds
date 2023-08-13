@@ -150,3 +150,10 @@ interface AnalyzedInstruction {
   name: string;
   steps: AnalyzedInstructionStep[];
 }
+
+interface Comment {
+  userId: string;
+  userName: string;
+  comment: string;
+  _id: string;
+}

@@ -3,11 +3,11 @@ import { simulateError } from "../utils/errorUtils.js";
 import Comment from "../models/commentModel.js";
 
 // description:   Get comments for recipe
-// method:        DELETE
+// method:        GET
 // route:         /api/comments
 // access:        Private
 const getUserComments = asyncHandler(async (req, res) => {
-  const { recipeId } = req.body;
+  const { recipeId } = req.query;
 
   const getComment = await Comment.findOne({ recipeId });
 
@@ -28,7 +28,6 @@ const addUserComment = asyncHandler(async (req, res) => {
   const recipeComments = await Comment.findOne({ recipeId });
 
   if (recipeComments) {
-    console.log("fuck");
     console.log(recipeComments.comments);
     comments.map((value) => {
       recipeComments.comments.push(value);

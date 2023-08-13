@@ -3,12 +3,14 @@ import authReducer from "./slices/authSlice.ts";
 import { apiSlice } from "./slices/apiSlice.ts";
 import recipeReducer from "./slices/currentRecipeSlice.ts";
 import recipesReducer from "./slices/currentRecipesSlice.ts";
+import commentSlice from "./slices/commentSlice.ts";
 
 const store = configureStore({
   reducer: {
     recipe: recipeReducer,
     auth: authReducer,
     recipes: recipesReducer,
+    comment: commentSlice,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>

@@ -166,7 +166,7 @@ const addUserRecipe = asyncHandler(async (req, res) => {
   }
 });
 
-// description:   Add recipe to user
+// description:   Get users saved recipes
 // method:        GET
 // route:         /api/users/recipe
 // access:        Private

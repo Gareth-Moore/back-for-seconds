@@ -2,7 +2,13 @@ import { Box, Heading, VStack, Text, Textarea, Button } from "@chakra-ui/react";
 import { useState } from "react";
 
 const Comments = () => {
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState([
+    { userName: "Gareth", comment: "Hello there", userId: 505 },
+    { userName: "Gareth", comment: "Hello there", userId: 505 },
+    { userName: "Gareth", comment: "Hello there", userId: 505 },
+    { userName: "Gareth", comment: "Hello there", userId: 505 },
+    { userName: "Gareth", comment: "Hello there", userId: 505 },
+  ]);
 
   return (
     <>
@@ -10,11 +16,12 @@ const Comments = () => {
         <Heading
           w={{ base: "90%", md: "760px" }}
           fontFamily={"'Courier Prime', monospace;"}
+          p={{ base: 5, md: 10 }}
         >
           Comments:
         </Heading>
         <Box
-          my={50}
+          mb={50}
           bg={"white"}
           borderRadius={15}
           w={{ base: "90%", md: "760px" }}
@@ -49,62 +56,14 @@ const Comments = () => {
               Submit
             </Button>
           </form>
-          {comments.length === 0 ? (
+          {comments.length > 0 ? (
             <VStack align={"left"} padding={5}>
-              <Text fontWeight={"bold"}>Gareth</Text>
-              <Text textAlign={"justify"}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-                veritatis unde enim doloribus, deserunt temporibus in ex eum
-                iusto similique tenetur quis, omnis sequi eligendi. Velit
-                officia dolores eaque ipsum repellat voluptas modi veniam
-                doloribus quidem amet optio, illum perspiciatis unde dolorem
-                autem consequatu necessitatibus.
-              </Text>
-              <Text fontWeight={"bold"}>Gareth</Text>
-              <Text textAlign={"justify"}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-                veritatis unde enim doloribus, deserunt temporibus in ex eum
-                iusto similique tenetur quis, omnis sequi eligendi. Velit
-                officia dolores eaque ipsum repellat voluptas modi veniam
-                doloribus quidem amet optio, illum perspiciatis unde dolorem
-                autem consequatu necessitatibus.
-              </Text>
-              <Text fontWeight={"bold"}>Gareth</Text>
-              <Text textAlign={"justify"}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-                veritatis unde enim doloribus, deserunt temporibus in ex eum
-                iusto similique tenetur quis, omnis sequi eligendi. Velit
-                officia dolores eaque ipsum repellat voluptas modi veniam
-                doloribus quidem amet optio, illum perspiciatis unde dolorem
-                autem consequatu necessitatibus.
-              </Text>
-              <Text fontWeight={"bold"}>Gareth</Text>
-              <Text textAlign={"justify"}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-                veritatis unde enim doloribus, deserunt temporibus in ex eum
-                iusto similique tenetur quis, omnis sequi eligendi. Velit
-                officia dolores eaque ipsum repellat voluptas modi veniam
-                doloribus quidem amet optio, illum perspiciatis unde dolorem
-                autem consequatu necessitatibus.
-              </Text>
-              <Text fontWeight={"bold"}>Gareth</Text>
-              <Text textAlign={"justify"}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-                veritatis unde enim doloribus, deserunt temporibus in ex eum
-                iusto similique tenetur quis, omnis sequi eligendi. Velit
-                officia dolores eaque ipsum repellat voluptas modi veniam
-                doloribus quidem amet optio, illum perspiciatis unde dolorem
-                autem consequatu necessitatibus.
-              </Text>
-              <Text fontWeight={"bold"}>Gareth</Text>
-              <Text textAlign={"justify"}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-                veritatis unde enim doloribus, deserunt temporibus in ex eum
-                iusto similique tenetur quis, omnis sequi eligendi. Velit
-                officia dolores eaque ipsum repellat voluptas modi veniam
-                doloribus quidem amet optio, illum perspiciatis unde dolorem
-                autem consequatu necessitatibus.
-              </Text>
+              {comments.map((value, index) => (
+                <Box key={index}>
+                  <Text fontWeight={"bold"}>{value.userName}</Text>
+                  <Text textAlign={"justify"}>{value.comment}</Text>
+                </Box>
+              ))}
             </VStack>
           ) : (
             <VStack align={"start"}>

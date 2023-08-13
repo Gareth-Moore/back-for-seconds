@@ -1,6 +1,7 @@
 import { apiSlice } from "./apiSlice.ts";
 
 const USERS_URL = "/api/users";
+const COMMENTS_URL = "/api/comments";
 
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -51,6 +52,12 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    getComments: builder.mutation({
+      query: () => ({
+        url: COMMENTS_URL,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -62,4 +69,5 @@ export const {
   useUpdateRecipeMutation,
   useGetUserRecipesMutation,
   useDeleteUserRecipeMutation,
+  useGetCommentsMutation,
 } = usersApiSlice;

@@ -11,7 +11,6 @@ import { useState } from "react";
 import apiClient from "../services/api-client";
 import BasicCard from "../components/BasicCard";
 import BasicCardGrid from "../components/BasicCardGrid";
-import TEST from "../components/TEST";
 
 interface Results {
   results: BasicRecipe[];
@@ -38,7 +37,6 @@ const SearchRecipes = () => {
           }
         );
         setRecipes({ results: response.data.results });
-        console.log(response.data.results[0]);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching recipes:", error);
@@ -72,7 +70,6 @@ const SearchRecipes = () => {
           />
         </InputGroup>
       </form>
-      <TEST></TEST>
       <BasicCardGrid isLoading={isLoading}>
         {recipes &&
           recipes.results.map((recipe, index) => (

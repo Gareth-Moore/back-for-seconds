@@ -48,7 +48,6 @@ const RecipeCard = () => {
         recipeId: recipe.id,
         recipeName: recipe.title,
       }).unwrap();
-      console.log(res.recipes);
       dispatch(setRecipes(res.recipes));
 
       toast.success("New recipe added!");

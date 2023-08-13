@@ -17,6 +17,7 @@ const authUser = asyncHandler(async (req, res) => {
 
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
+
     res.status(201).json({
       _id: user._id,
       firstName: user.firstName,
@@ -136,7 +137,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 // access:        Private
 const addUserRecipe = asyncHandler(async (req, res) => {
   simulateError(false);
-  console.log(req.body.recipe);
 
   const user = await User.findById(req.user._id);
 

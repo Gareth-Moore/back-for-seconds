@@ -54,9 +54,9 @@ const ProfileScreen = () => {
       dispatch(setCredentials({ ...res }));
       navigate("/");
       toast.success("User profile updated!");
-      console.log(res.firstName);
-    } catch (error) {}
-    console.log("submit");
+    } catch (error: any) {
+      console.log(error.message);
+    }
   };
 
   return (

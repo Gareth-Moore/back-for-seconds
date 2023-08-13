@@ -19,25 +19,26 @@ const getUserComments = asyncHandler(async (req, res) => {
 });
 
 // description:   Add a users comment
-// method:        PUT
+// method:        POST
 // route:         /api/comments
 // access:        Private
 const addUserComment = asyncHandler(async (req, res) => {
-  const { recipeId, comments } = req.body;
-
+  const { recipeId, comment, userId, userName } = req.query;
+  console.log(recipeId, comment, userId, userName);
   const recipeComments = await Comment.findOne({ recipeId });
-
+  console.log(recipeComments);
   if (recipeComments) {
-    console.log(recipeComments.comments);
-    comments.map((value) => {
-      recipeComments.comments.push(value);
-    });
+    recipeComments.comments.push({ userId, userName, comment });
     const updatedComments = await recipeComments.save();
     res.status(200).json(updatedComments);
   } else {
     const updateComments = await Comment.create({
-      recipeId: req.body.recipeId,
-      comments: req.body.comments,
+      recipeId: recipeId,
+      comments: {
+        userId,
+        userName,
+        comment,
+      },
     });
     res.status(200).json(updateComments);
   }

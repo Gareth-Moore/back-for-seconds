@@ -21,14 +21,15 @@ const app = express();
 
 // parse to json
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // parse form data
+app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "http://localhost:3000", // Your frontend's URL
-    credentials: true, // Include cookies in cross-origin requests
+    origin: "http://localhost:3000",
+    credentials: true,
+    methods: "GET, POST, PUT, DELETE",
   })
 );
 

@@ -65,7 +65,6 @@ const MyRecipesList = () => {
   const showSelectedRecipe = async (id: number) => {
     try {
       const res = await fetchRecipeById(id);
-      console.log(res);
     } catch (error: any) {
       toast.error(error.message);
     }
@@ -86,7 +85,6 @@ const MyRecipesList = () => {
         const errorMessage = res.error.toString(); // Convert error to string
         toast.error(errorMessage);
       }
-      console.log(res);
     } catch (error) {}
   };
 

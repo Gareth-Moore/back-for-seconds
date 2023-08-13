@@ -1,14 +1,50 @@
 import { Box, Heading, VStack, Text, Textarea, Button } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect, FormEvent } from "react";
+import useComments from "../hooks/useComments";
+import { useDispatch, useSelector } from "react-redux";
+import { setComment } from "../slices/commentSlice";
+import postComment from "../hooks/updateComments";
 
 const Comments = () => {
-  const [comments, setComments] = useState([
-    { userName: "Gareth", comment: "Hello there", userId: 505 },
-    { userName: "Gareth", comment: "Hello there", userId: 505 },
-    { userName: "Gareth", comment: "Hello there", userId: 505 },
-    { userName: "Gareth", comment: "Hello there", userId: 505 },
-    { userName: "Gareth", comment: "Hello there", userId: 505 },
-  ]);
+  const [currentComment, setCurrentComment] = useState("");
+  const comments = useSelector((state: any) => state.comment.comments);
+  const recipeId = useSelector((state: any) => state.recipe.id);
+  const { userInfo } = useSelector((state: any) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setCurrentComment("");
+    const getComments = async () => {
+      try {
+        const getCommentsFunction = useComments(recipeId);
+        const res = await getCommentsFunction();
+        if (res === 404) {
+          console.log("No recipe comments exist");
+        } else {
+          dispatch(setComment(res.comments));
+        }
+      } catch (error: any) {
+        dispatch(setComment([]));
+        console.log(error.message);
+      }
+    };
+    getComments();
+    return () => {
+      dispatch(setComment([]));
+    };
+  }, [recipeId]);
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    const res = await postComment(
+      currentComment,
+      userInfo.firstName,
+      userInfo._id,
+      recipeId
+    );
+    dispatch(setComment(res));
+    setCurrentComment("");
+  };
 
   return (
     <>
@@ -32,8 +68,10 @@ const Comments = () => {
           <Heading fontSize={"md"} mb={2}>
             Enter comment:
           </Heading>
-          <form>
+          <form onSubmit={(event) => handleSubmit(event)}>
             <Textarea
+              onChange={(event) => setCurrentComment(event.target.value)}
+              value={currentComment}
               width="100%"
               minH="unset"
               resize="none"
@@ -58,7 +96,7 @@ const Comments = () => {
           </form>
           {comments.length > 0 ? (
             <VStack align={"left"} padding={5}>
-              {comments.map((value, index) => (
+              {comments.map((value: Comment, index: number) => (
                 <Box key={index}>
                   <Text fontWeight={"bold"}>{value.userName}</Text>
                   <Text textAlign={"justify"}>{value.comment}</Text>

@@ -11,7 +11,7 @@ const router = express.Router();
 router
   .route("/")
   .get(protect, getUserComments)
-  .put(protect, addUserComment)
+  .post(addUserComment)
   .delete(protect, deleteUserComment);
 
 export default router;

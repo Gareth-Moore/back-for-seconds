@@ -67,10 +67,10 @@ const MyRecipesList = () => {
         dispatch(setShoppingList(data));
         toast.success("Recipe has been deleted");
       } else if ("error" in res) {
-        const errorMessage = res.error.toString();
-        // toast.error(errorMessage);
       }
-    } catch (error) {}
+    } catch (error: any) {
+      console.log(error.message);
+    }
   };
 
   const fetchShoppingList = async () => {

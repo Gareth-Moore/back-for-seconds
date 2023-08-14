@@ -63,7 +63,7 @@ const MyRecipesList = () => {
 
   const showSelectedRecipe = async (id: number) => {
     try {
-      const res = await fetchRecipeById(id);
+      await fetchRecipeById(id);
     } catch (error: any) {
       toast.error(error.message);
     }

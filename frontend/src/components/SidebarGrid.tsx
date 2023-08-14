@@ -1,6 +1,5 @@
-import { Grid, Box, Show } from "@chakra-ui/react";
+import { Grid, Box } from "@chakra-ui/react";
 import { ReactNode } from "react";
-import MyRecipesList from "./MyRecipesList";
 import Comments from "./Comments";
 import React from "react";
 

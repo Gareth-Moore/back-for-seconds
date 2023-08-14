@@ -31,7 +31,7 @@ const ExploreRecipes = () => {
 
   return (
     <VStack>
-      <Header />
+      <Header title={"Back for Seconds?"} image="logo.png" />
       <Text
         color={"gray.600"}
         textAlign={"center"}

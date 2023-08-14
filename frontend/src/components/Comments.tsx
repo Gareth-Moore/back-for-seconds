@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setComment } from "../slices/commentSlice";
 import postComment from "../hooks/updateComments";
 import { toast } from "react-toastify";
+import ContainerWhite from "./ContainerWhite";
 
 const Comments = () => {
   const [currentComment, setCurrentComment] = useState("");
@@ -53,23 +54,15 @@ const Comments = () => {
 
   return (
     <>
-      <Box w={{ base: "90%", md: "760px" }} mx={"auto"} id="recipeBox">
+      <Box w={{ base: "90%", md: "760px" }} mx={"auto"} id="recipeBox" mb={50}>
         <Heading
           w={{ base: "90%", md: "760px" }}
           fontFamily={"'Courier Prime', monospace;"}
-          p={{ base: 5, md: 10 }}
+          pl={{ base: 5, md: 10 }}
         >
           Comments:
         </Heading>
-        <Box
-          mb={50}
-          bg={"white"}
-          borderRadius={15}
-          w={{ base: "90%", md: "760px" }}
-          mx={"auto"}
-          p={{ base: 5, md: 10 }}
-          border={"1px solid lightgray"}
-        >
+        <ContainerWhite display="block">
           <Heading fontSize={"md"} mb={2}>
             Enter comment:
           </Heading>
@@ -113,7 +106,7 @@ const Comments = () => {
               <Text>No comments yet, be the first to comment?</Text>
             </VStack>
           )}
-        </Box>
+        </ContainerWhite>
       </Box>
     </>
   );

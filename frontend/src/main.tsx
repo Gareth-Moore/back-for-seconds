@@ -18,7 +18,7 @@ import PrivateRoute from "./components/PrivateRoute.tsx";
 import ExploreRecipes from "./screens/ExploreRecipes.tsx";
 import SearchRecipes from "./screens/SearchRecipes.tsx";
 import MyRecipes from "./screens/MyRecipes.tsx";
-import MyShoppingList from "./screens/MyShoppingList.tsx";
+import MyShopping from "./screens/MyShoppingList.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,7 +33,7 @@ const router = createBrowserRouter(
         <Route path="/explore-recipes" element={<ExploreRecipes />} />
         <Route path="/search-recipes" element={<SearchRecipes />} />
         <Route path="/my-recipes" element={<MyRecipes />} />
-        <Route path="/shopping-list" element={<MyShoppingList />} />
+        <Route path="/shopping-list" element={<MyShopping />} />
       </Route>
     </Route>
   )

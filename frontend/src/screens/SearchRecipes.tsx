@@ -1,78 +1,56 @@
-import {
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
-  Text,
-} from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import Header from "../components/Header";
-import { SearchIcon } from "@chakra-ui/icons";
 import { useState } from "react";
-import apiClient from "../services/api-client";
 import BasicCard from "../components/BasicCard";
 import BasicCardGrid from "../components/BasicCardGrid";
-
-interface Results {
-  results: BasicRecipe[];
-}
+import SearchBar from "../components/SearchBar";
+import useSearchRecipes from "../hooks/useSearchRecipes";
 
 const SearchRecipes = () => {
-  const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [recipes, setRecipes] = useState<Results | undefined>();
+  const [recipes, setRecipes] = useState<BasicRecipe[]>([]);
+  const [noResults, setNoResults] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>,
+    search: string
+  ) => {
     e.preventDefault();
     const searchConcat = search.split(" ").join(",");
-    const fetchRecipes = async () => {
-      try {
-        setIsLoading(true);
-        const response = await apiClient.get<Results>(
-          "/recipes/complexSearch",
-          {
-            params: {
-              query: searchConcat,
-              number: 10,
-            },
-          }
-        );
-        setRecipes({ results: response.data.results });
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching recipes:", error);
-        setIsLoading(false);
+    setNoResults(false);
+    try {
+      setIsLoading(true);
+      const res = await useSearchRecipes(searchConcat);
+      if (res) {
+        setRecipes(res.results);
       }
-    };
-    fetchRecipes();
+      if (res && res.results.length === 0) {
+        setNoResults(true);
+      }
+    } catch (error: any) {
+      setNoResults(true);
+      console.log(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+    setIsLoading(false);
   };
 
   return (
     <>
-      <Header></Header>
+      <Header title={"Back for Seconds?"} image="logo.png" />
       <Text textAlign={"center"} w={"90%"} mx="auto">
         Search for any recipes by name, tag or ingredient
       </Text>
-      <form onSubmit={handleSubmit}>
-        <InputGroup my={5} mx={"auto"} w={{ base: "90%", md: "60%" }}>
-          <InputLeftElement children={<SearchIcon color="gray.500" />} />
-          <Input
-            borderRadius={20}
-            placeholder="Enter search"
-            variant="outline"
-            bg="white"
-            display="block"
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <InputRightElement
-            children={<SearchIcon />}
-            as="button"
-            type="submit"
-          />
-        </InputGroup>
-      </form>
+      <SearchBar handleSubmit={handleSubmit} />
+      {noResults && (
+        <Text textAlign={"center"} fontWeight={"bold"}>
+          No results for your search...
+        </Text>
+      )}
       <BasicCardGrid isLoading={isLoading}>
-        {recipes &&
-          recipes.results.map((recipe, index) => (
+        {Object.keys(recipes).length !== 0 &&
+          recipes.map((recipe, index) => (
             <BasicCard
               isLoading={isLoading}
               key={index}

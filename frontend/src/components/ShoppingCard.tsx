@@ -1,5 +1,11 @@
+import Header from "./Header";
+
 const ShoppingCard = () => {
-  return <div>ShoppingCard</div>;
+  return (
+    <>
+      <Header title={"Shopping List"} image="cart.png"></Header>
+    </>
+  );
 };
 
 export default ShoppingCard;

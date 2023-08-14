@@ -1,14 +1,14 @@
 import ShoppingCard from "../components/ShoppingCard";
-import ShoppingList from "../components/ShoppingList";
+import MyShoppingList from "../components/MyShoppingList";
 import SidebarGrid from "../components/SidebarGrid";
 
-const MyShoppingList = () => {
+const MyShopping = () => {
   return (
     <SidebarGrid showComments={false}>
-      <ShoppingList />
+      <MyShoppingList />
       <ShoppingCard />
     </SidebarGrid>
   );
 };
 
-export default MyShoppingList;
+export default MyShopping;

@@ -1,13 +1,18 @@
 import { VStack, Heading, Image } from "@chakra-ui/react";
 
-const Header = () => {
+interface Props {
+  image: string;
+  title: string;
+}
+
+const Header = ({ image, title }: Props) => {
   return (
     <VStack>
       <Heading fontFamily={"'Courier Prime', monospace"} mt={10}>
-        Back for seconds?
+        {title && title}
       </Heading>
       <Image
-        src="src/assets/logo.png"
+        src={`src/assets/${image && image}`}
         w={{ base: "96px", lg: "128px" }}
         mt={5}
         mb={10}

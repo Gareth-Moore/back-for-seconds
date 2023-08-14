@@ -1,20 +1,21 @@
-import {
-  VStack,
-  Image,
-  Text,
-  Box,
-  Button,
-  useDisclosure,
-} from "@chakra-ui/react";
-import { useDispatch, useSelector } from "react-redux";
+import { VStack, Image, Text, Box, Button } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
 import { setShoppingList } from "../slices/shoppingListSlice";
+import useUpdateShoppingList from "../hooks/useUpdateShoppingList";
+import { toast } from "react-toastify";
 
 const IngredientCard = ({ ingredient }: { ingredient: Ingredient }) => {
-  const { shoppingList } = useSelector((state: any) => state.shoppingList);
-
   const dispatch = useDispatch();
 
-  const handleClick = async (id: number, name: string) => {};
+  const handleClick = async (id: number, name: string) => {
+    try {
+      const res = await useUpdateShoppingList(id, name);
+      dispatch(setShoppingList(res));
+      toast.success("Item added to your shopping list");
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <VStack

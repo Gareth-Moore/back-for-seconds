@@ -15,25 +15,25 @@ import {
   AiOutlineMinusSquare,
   AiOutlinePlusSquare,
 } from "react-icons/ai";
-import { useGetUserRecipesMutation } from "../slices/userApiSlice";
+import {
+  useGetShoppingListMutation,
+  useGetUserRecipesMutation,
+} from "../slices/userApiSlice";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import { setShoppingList } from "../slices/shoppingListSlice";
-import { useDeleteUserRecipeMutation } from "../slices/userApiSlice";
-import useRecipeById from "../hooks/useRecipeById";
-import { distance } from "framer-motion";
+import { useDeleteShoppingListItemMutation } from "../slices/userApiSlice";
 
-interface UserRecipes {
-  id: number;
-  name: string;
-}
+// interface UserRecipes {
+//   id: number;
+//   name: string;
+// }
 
 const MyRecipesList = () => {
   const [isLargerThanLg] = useMediaQuery("(min-width: 992px)");
   const [isListOpen, setIsListOpen] = useState(false);
   const { shoppingList } = useSelector((state: any) => state.shoppingList);
-  // const fetchRecipeById = useRecipeById(-1);
   const [isHovered, setIsHovered] = useState(-1);
 
   const dispatch = useDispatch();
@@ -45,23 +45,10 @@ const MyRecipesList = () => {
     }
   };
 
+  const [getShoppingList] = useGetShoppingListMutation();
   // const [getRecipes] = useGetUserRecipesMutation();
+  const [deleteShoppingListItem] = useDeleteShoppingListItemMutation();
   // const [deleteUserRecipe] = useDeleteUserRecipeMutation();
-
-  // const fetchRecipes = async () => {
-  //   try {
-  //     const res = await getRecipes({});
-  //     if ("data" in res) {
-  //       const data = res.data;
-  //       dispatch(setRecipes(data.recipes));
-  //     } else if ("error" in res) {
-  //       const errorMessage = res.error.toString(); // Convert error to string
-  //       toast.error(errorMessage);
-  //     }
-  //   } catch (error: any) {
-  //     console.log(error.message);
-  //   }
-  // };
 
   // const showSelectedRecipe = async (id: number) => {
   //   try {
@@ -71,27 +58,39 @@ const MyRecipesList = () => {
   //   }
   // };
 
-  const onDelete = async (
-    event: React.MouseEvent<SVGElement, MouseEvent>,
-    id: number
-  ) => {
-    event.stopPropagation();
-    // try {
-    //   const res = await deleteUserRecipe({ id });
-    //   if ("data" in res) {
-    //     const data = res.data;
-    //     dispatch(setRecipes(data));
-    //     toast.warning("Recipe has been deleted");
-    //   } else if ("error" in res) {
-    //     const errorMessage = res.error.toString();
-    //     toast.error(errorMessage);
-    //   }
-    // } catch (error) {}
+  const onDelete = async (id: number) => {
+    try {
+      console.log(id);
+      const res = await deleteShoppingListItem(id);
+      if ("data" in res) {
+        const data = res.data;
+        dispatch(setShoppingList(data));
+        toast.success("Recipe has been deleted");
+      } else if ("error" in res) {
+        const errorMessage = res.error.toString();
+        // toast.error(errorMessage);
+      }
+    } catch (error) {}
+  };
+
+  const fetchShoppingList = async () => {
+    try {
+      const res = await getShoppingList({});
+      if ("data" in res) {
+        const data = res.data;
+        dispatch(setShoppingList(data));
+      } else if ("error" in res) {
+        const errorMessage = res.error.toString();
+        toast.error(errorMessage);
+      }
+    } catch (error: any) {
+      console.log(error.message);
+    }
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    // fetchRecipes();
+    fetchShoppingList();
     setIsListOpen(isLargerThanLg);
   }, [isLargerThanLg]);
 
@@ -134,10 +133,9 @@ const MyRecipesList = () => {
                 p={3}
               >
                 {shoppingList.length > 0 ? (
-                  shoppingList.map((value: UserRecipes, index: number) => (
+                  shoppingList.map((value: Ingredient, index: number) => (
                     <ListItem
                       key={index}
-                      // onClick={() => showSelectedRecipe(value.id)}
                       padding={2}
                       overflow={"none"}
                       whiteSpace={"nowrap"}
@@ -152,8 +150,8 @@ const MyRecipesList = () => {
                         maxWidth: "100%",
                         display: "flex",
                         overflow: "hidden",
-                        justifyContent: "space-between", // Align the delete icon on the right
-                        alignItems: "center", // Center vertically
+                        justifyContent: "space-between",
+                        alignItems: "center",
                       }}
                       onMouseEnter={() => setIsHovered(index)}
                       onMouseLeave={() => setIsHovered(-1)}
@@ -164,15 +162,17 @@ const MyRecipesList = () => {
                           maxWidth:
                             isHovered != -1 && isHovered === index
                               ? "calc(100% - 24px)"
-                              : "100%", // Adjust the width to accommodate the icon
+                              : "100%",
                           overflow: "hidden",
                         }}
                       >
-                        {value.name}
+                        {`${value.name.slice(0, 1).toUpperCase()}${value.name
+                          .slice(1)
+                          .toLowerCase()}`}
                       </span>
                       {isHovered === index && (
                         <AiOutlineDelete
-                          onClick={(event: any) => onDelete(event, value.id)}
+                          onClick={(event: any) => onDelete(value.id)}
                           style={{ cursor: "pointer" }}
                         />
                       )}

@@ -2,6 +2,7 @@ import { apiSlice } from "./apiSlice.ts";
 
 const USERS_URL = "/api/users";
 const COMMENTS_URL = "/api/comments";
+const SHOPPINGLIST_URL = "/api/shopping-list";
 
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -58,6 +59,25 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getShoppingList: builder.mutation({
+      query: () => ({
+        url: SHOPPINGLIST_URL,
+        method: "GET",
+      }),
+    }),
+    deleteShoppingListItem: builder.mutation({
+      query: (id) => ({
+        url: `${SHOPPINGLIST_URL}?id=${id}`,
+        method: "DELETE",
+      }),
+    }),
+    updateShoppingListItem: builder.mutation({
+      query: (data) => ({
+        url: SHOPPINGLIST_URL,
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -70,4 +90,7 @@ export const {
   useGetUserRecipesMutation,
   useDeleteUserRecipeMutation,
   useGetCommentsMutation,
+  useGetShoppingListMutation,
+  useUpdateShoppingListItemMutation,
+  useDeleteShoppingListItemMutation,
 } = usersApiSlice;

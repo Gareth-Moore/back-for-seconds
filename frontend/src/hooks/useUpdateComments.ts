@@ -1,6 +1,6 @@
 import dbClient from "../services/db-client";
 
-const postComment = async (
+const useUpdateComments = async (
   comment: string,
   userName: string,
   userId: string,
@@ -21,4 +21,4 @@ const postComment = async (
   }
 };
 
-export default postComment;
+export default useUpdateComments;

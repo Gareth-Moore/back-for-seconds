@@ -4,7 +4,7 @@ interface BasicRecipe {
   image: string;
 }
 
-interface Ingredient {
+interface IngredientItem {
   id: number;
   name: string;
   image: string;

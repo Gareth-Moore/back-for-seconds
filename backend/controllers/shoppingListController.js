@@ -6,18 +6,17 @@ import User from "../models/userModel.js";
 // route:         /api/shopping-list
 // access:        Private
 const getShoppingList = asyncHandler(async (req, res) => {
-  console.log("hi");
   const email = req.user.email;
 
   const user = await User.findOne({ email });
 
   if (user) {
-    res.status(200).json(user.shoppingList);
+    return res.status(200).json(user.shoppingList);
   } else {
-    res.status(404).json({ message: "User not found" });
+    return res.status(404).json({ message: "User not found" });
   }
 
-  res.status(200).json("We have the list");
+  return res.status(200).json("We have the list");
 });
 
 // description:   Add to shopping list
@@ -25,9 +24,9 @@ const getShoppingList = asyncHandler(async (req, res) => {
 // route:         /api/shopping-list
 // access:        Private
 const addToShoppingList = asyncHandler(async (req, res) => {
-  const { ingredientName, ingredientId } = req.query;
-
-  if (!ingredientName || !ingredientId) {
+  const { name, id } = req.body;
+  console.log("hi");
+  if (!name || !id) {
     return res.status(400).json({ message: "Not all parameters are included" });
   }
 
@@ -37,11 +36,11 @@ const addToShoppingList = asyncHandler(async (req, res) => {
 
   if (user) {
     const shoppingList = user.shoppingList;
-    shoppingList.push({ ingredientName, ingredientId });
+    shoppingList.push({ name, id });
     const updatedShoppingList = await user.save();
-    res.status(200).json(updatedShoppingList.shoppingList);
+    return res.status(200).json(updatedShoppingList.shoppingList);
   } else {
-    res.status(404).json({ message: "User not found" });
+    return res.status(404).json({ message: "User not found" });
   }
 });
 
@@ -50,9 +49,11 @@ const addToShoppingList = asyncHandler(async (req, res) => {
 // route:         /api/shopping-list
 // access:        Private
 const deleteFromShoppingList = asyncHandler(async (req, res) => {
-  const { ingredientId } = req.query;
-
-  if (!ingredientId) {
+  console.log(req.body);
+  console.log(req.query);
+  const { id } = req.query;
+  console.log(id);
+  if (!id) {
     return res.status(400).json({ message: "Query parameters invalid" });
   }
 
@@ -61,9 +62,7 @@ const deleteFromShoppingList = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user) {
-    user.shoppingList = user.shoppingList.filter(
-      (value) => value.ingredientId != ingredientId
-    );
+    user.shoppingList = user.shoppingList.filter((value) => value.id != id);
     await user.save();
     return res.status(200).json(user.shoppingList);
   } else {

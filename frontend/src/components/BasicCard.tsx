@@ -18,7 +18,7 @@ const BasicCard = ({ id, title, image }: Props) => {
     try {
       await fetchRecipeById(id);
     } catch (error: any) {
-      toast.error(error.message);
+      console.log(error.message);
     }
     navigate("/my-recipes");
   };

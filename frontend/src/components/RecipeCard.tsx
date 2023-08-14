@@ -56,6 +56,13 @@ const RecipeCard = () => {
     }
   };
 
+  const handleCommentClick = () => {
+    const boxElement = document.querySelector("#recipeBox");
+    if (boxElement) {
+      boxElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       {recipe.id && (
@@ -222,7 +229,7 @@ const RecipeCard = () => {
                     <AiOutlineSave size={"24px"} />
                   </Box>
                 </Button>
-                <Button w={"40%"}>
+                <Button w={"40%"} onClick={handleCommentClick}>
                   Comment
                   <Box ml={3}>
                     <AiOutlineComment size={"24px"} />

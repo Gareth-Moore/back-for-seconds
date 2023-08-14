@@ -57,7 +57,6 @@ const MyRecipesList = () => {
         toast.error(errorMessage);
       }
     } catch (error: any) {
-      toast.error("Oops, something went wrong!");
       console.log(error.message);
     }
   };
@@ -82,7 +81,7 @@ const MyRecipesList = () => {
         dispatch(setRecipes(data));
         toast.warning("Recipe has been deleted");
       } else if ("error" in res) {
-        const errorMessage = res.error.toString(); // Convert error to string
+        const errorMessage = res.error.toString();
         toast.error(errorMessage);
       }
     } catch (error) {}

@@ -4,6 +4,7 @@ import useComments from "../hooks/useComments";
 import { useDispatch, useSelector } from "react-redux";
 import { setComment } from "../slices/commentSlice";
 import postComment from "../hooks/updateComments";
+import { toast } from "react-toastify";
 
 const Comments = () => {
   const [currentComment, setCurrentComment] = useState("");
@@ -36,19 +37,23 @@ const Comments = () => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    const res = await postComment(
-      currentComment,
-      userInfo.firstName,
-      userInfo._id,
-      recipeId
-    );
-    dispatch(setComment(res));
-    setCurrentComment("");
+    if (currentComment) {
+      const res = await postComment(
+        currentComment,
+        userInfo.firstName,
+        userInfo._id,
+        recipeId
+      );
+      dispatch(setComment(res));
+      setCurrentComment("");
+    } else {
+      toast.error("Please enter a comment");
+    }
   };
 
   return (
     <>
-      <Box w={{ base: "90%", md: "760px" }} mx={"auto"}>
+      <Box w={{ base: "90%", md: "760px" }} mx={"auto"} id="recipeBox">
         <Heading
           w={{ base: "90%", md: "760px" }}
           fontFamily={"'Courier Prime', monospace;"}

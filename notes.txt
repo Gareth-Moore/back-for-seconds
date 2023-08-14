@@ -1,7 +1,7 @@
 rating system for recipe cards
 implement deleting comments if you have time
 clicking on the comment button on RecipeCard should take you to the comments section
-
+Cleanup all comments (especially the ChatGPT/pumba ones)
 
 Shopping list:
     get information from spoonacular (see what the data looks like)

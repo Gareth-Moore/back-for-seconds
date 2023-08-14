@@ -24,9 +24,12 @@ const getUserComments = asyncHandler(async (req, res) => {
 // access:        Private
 const addUserComment = asyncHandler(async (req, res) => {
   const { recipeId, comment, userId, userName } = req.query;
-  console.log(recipeId, comment, userId, userName);
+  if (!recipeId && !comment && !userId && !userName) {
+    res.status(400).json({ message: "Not all parameters are included" });
+  }
+
   const recipeComments = await Comment.findOne({ recipeId });
-  console.log(recipeComments);
+
   if (recipeComments) {
     recipeComments.comments.push({ userId, userName, comment });
     const updatedComments = await recipeComments.save();

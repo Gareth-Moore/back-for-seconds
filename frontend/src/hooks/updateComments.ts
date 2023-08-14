@@ -10,7 +10,7 @@ const postComment = async (
   try {
     const res = await dbClient.post(
       `/comments?comment=${comment}&userId=${userId}&userName=${userName}&recipeId=${recipeId}`,
-
+      null,
       {
         withCredentials: true,
       }

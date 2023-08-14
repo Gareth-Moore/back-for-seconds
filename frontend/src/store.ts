@@ -4,11 +4,13 @@ import { apiSlice } from "./slices/apiSlice.ts";
 import recipeReducer from "./slices/currentRecipeSlice.ts";
 import recipesReducer from "./slices/currentRecipesSlice.ts";
 import commentSlice from "./slices/commentSlice.ts";
+import shoppingListReducer from "./slices/shoppingListSlice.ts";
 
 const store = configureStore({
   reducer: {
     recipe: recipeReducer,
     auth: authReducer,
+    shoppingList: shoppingListReducer,
     recipes: recipesReducer,
     comment: commentSlice,
     [apiSlice.reducerPath]: apiSlice.reducer,

@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
+import shoppingListRoutes from "./routes/shoppingListRoutes.js";
 import cookieParser from "cookie-parser";
 import {
   routeNotFound,
@@ -36,6 +37,7 @@ app.use(
 // routes
 app.use("/api/users", userRoutes);
 app.use("/api/comments", commentRoutes);
+app.use("/api/shopping-list", shoppingListRoutes);
 
 app.get("/", (req, res) => res.send("Server is ready..."));
 

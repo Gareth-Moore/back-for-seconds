@@ -4,7 +4,11 @@ interface BasicRecipe {
   image: string;
 }
 
-interface Ingredient {}
+interface Ingredient {
+  id: number;
+  name: string;
+  image: string;
+}
 
 interface ApiResponse {
   recipes: BasicRecipe[];

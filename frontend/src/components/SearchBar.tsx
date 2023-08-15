@@ -6,6 +6,8 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { FaArrowRight } from "react-icons/fa";
+import { TbSquareRoundedArrowRightFilled } from "react-icons/tb";
 
 interface Props {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>, search: string) => void;
@@ -27,7 +29,7 @@ const SearchBar = ({ handleSubmit }: Props) => {
           onChange={(e) => setSearch(e.target.value)}
         />
         <InputRightElement
-          children={<SearchIcon />}
+          children={<FaArrowRight />}
           as="button"
           type="submit"
         />

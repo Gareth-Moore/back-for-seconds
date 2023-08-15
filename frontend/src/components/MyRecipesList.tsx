@@ -150,8 +150,8 @@ const MyRecipesList = () => {
                         maxWidth: "100%",
                         display: "flex",
                         overflow: "hidden",
-                        justifyContent: "space-between", // Align the delete icon on the right
-                        alignItems: "center", // Center vertically
+                        justifyContent: "space-between",
+                        alignItems: "center",
                       }}
                       onMouseEnter={() => setIsHovered(index)}
                       onMouseLeave={() => setIsHovered(-1)}
@@ -162,7 +162,7 @@ const MyRecipesList = () => {
                           maxWidth:
                             isHovered != -1 && isHovered === index
                               ? "calc(100% - 24px)"
-                              : "100%", // Adjust the width to accommodate the icon
+                              : "100%",
                           overflow: "hidden",
                         }}
                       >

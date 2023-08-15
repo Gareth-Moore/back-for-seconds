@@ -17,7 +17,7 @@ const Logo = () => {
 export default function Footer() {
   return (
     <Box
-      bg={"#f0f0f055"}
+      bg={"white"}
       color={useColorModeValue("gray.700", "gray.200")}
       borderTop={"1px solid lightgray"}
     >
@@ -36,18 +36,21 @@ export default function Footer() {
           <Button
             as={"a"}
             target={"_blank"}
+            _hover={{ bg: "red.400", color: "white" }}
             href={"https://www.linkedin.com/in/gareth-moore-14a645150/"}
           >
             <FaLinkedin />
           </Button>
           <Button
             as={"a"}
+            _hover={{ bg: "red.400", color: "white" }}
             href={"https://github.com/Gareth-Moore"}
             target={"_blank"}
           >
             <FaGithub />
           </Button>
           <Button
+            _hover={{ bg: "red.400", color: "white" }}
             as={"a"}
             href={"https://gareth-moore.github.io/Frontend-Mentor-projects/"}
             target="_blank"

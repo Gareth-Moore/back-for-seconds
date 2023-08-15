@@ -15,20 +15,12 @@ import {
   AiOutlineMinusSquare,
   AiOutlinePlusSquare,
 } from "react-icons/ai";
-import {
-  useGetShoppingListMutation,
-  useGetUserRecipesMutation,
-} from "../slices/userApiSlice";
+import { useGetShoppingListMutation } from "../slices/userApiSlice";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import { setShoppingList } from "../slices/shoppingListSlice";
 import { useDeleteShoppingListItemMutation } from "../slices/userApiSlice";
-
-// interface UserRecipes {
-//   id: number;
-//   name: string;
-// }
 
 const MyRecipesList = () => {
   const [isLargerThanLg] = useMediaQuery("(min-width: 992px)");
@@ -46,17 +38,7 @@ const MyRecipesList = () => {
   };
 
   const [getShoppingList] = useGetShoppingListMutation();
-  // const [getRecipes] = useGetUserRecipesMutation();
   const [deleteShoppingListItem] = useDeleteShoppingListItemMutation();
-  // const [deleteUserRecipe] = useDeleteUserRecipeMutation();
-
-  // const showSelectedRecipe = async (id: number) => {
-  //   try {
-  //     await fetchRecipeById(id);
-  //   } catch (error: any) {
-  //     toast.error(error.message);
-  //   }
-  // };
 
   const onDelete = async (id: number) => {
     try {
@@ -172,7 +154,7 @@ const MyRecipesList = () => {
                       </span>
                       {isHovered === index && (
                         <AiOutlineDelete
-                          onClick={(event: any) => onDelete(value.id)}
+                          onClick={() => onDelete(value.id)}
                           style={{ cursor: "pointer" }}
                         />
                       )}

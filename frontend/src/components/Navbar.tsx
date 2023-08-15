@@ -121,7 +121,6 @@ export default function WithSubnavigation() {
                   fontSize={"sm"}
                   fontWeight={600}
                   as={Button}
-                  rightIcon={<ChevronDownIcon />}
                   _hover={{ bg: "red.500" }}
                 >
                   Profile
@@ -154,7 +153,7 @@ export default function WithSubnavigation() {
                 bg={"red.400"}
                 to={"/register"}
                 _hover={{
-                  bg: "red.300",
+                  bg: "red.500",
                 }}
               >
                 Sign Up
@@ -243,17 +242,6 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
           </Text>
           <Text fontSize={"sm"}>{subLabel}</Text>
         </Box>
-        <Flex
-          transition={"all .3s ease"}
-          transform={"translateX(-10px)"}
-          opacity={0}
-          _groupHover={{ opacity: "100%", transform: "translateX(0)" }}
-          justify={"flex-end"}
-          align={"center"}
-          flex={1}
-        >
-          <Icon color={"red.400"} w={5} h={5} as={ChevronRightIcon} />
-        </Flex>
       </Stack>
     </Box>
   );
@@ -284,25 +272,16 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
         to={href ?? "#"}
         justifyContent="space-between"
         alignItems="center"
+        color={useColorModeValue("gray.600", "gray.200")}
+        borderRadius={15}
+        pl={2}
         _hover={{
           textDecoration: "none",
+          bg: "red.400",
+          color: "white",
         }}
       >
-        <Text
-          fontWeight={600}
-          color={useColorModeValue("gray.600", "gray.200")}
-        >
-          {label}
-        </Text>
-        {children && (
-          <Icon
-            as={ChevronDownIcon}
-            transition={"all .25s ease-in-out"}
-            transform={isOpen ? "rotate(180deg)" : ""}
-            w={6}
-            h={6}
-          />
-        )}
+        <Text fontWeight={600}>{label}</Text>
       </Box>
 
       <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
@@ -315,7 +294,16 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
         >
           {children &&
             children.map((child) => (
-              <Box as={RouterLink} key={child.label} py={2} to={child.href}>
+              <Box
+                as={RouterLink}
+                key={child.label}
+                py={2}
+                px={2}
+                borderRadius={15}
+                w={"100%"}
+                to={child.href}
+                _hover={{ bg: "red.400", color: "white" }}
+              >
                 {child.label}
               </Box>
             ))}
@@ -338,13 +326,15 @@ const NAV_ITEMS: Array<NavItem> = [
     children: [
       {
         label: "Explore popular recipes",
-        subLabel: "A mix of all the trendiest recipes",
         href: "/explore-recipes",
       },
       {
-        label: "Search for dish",
-        subLabel: "Find the recipe you're looking for",
+        label: "Search",
         href: "/search-recipes",
+      },
+      {
+        label: "Cuisines",
+        href: "/cuisines",
       },
     ],
   },

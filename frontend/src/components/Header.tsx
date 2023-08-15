@@ -8,7 +8,11 @@ interface Props {
 const Header = ({ image, title }: Props) => {
   return (
     <VStack>
-      <Heading fontFamily={"'Courier Prime', monospace"} mt={10}>
+      <Heading
+        fontFamily={"'Courier Prime', monospace"}
+        fontSize={{ base: "lg", md: "2xl", lg: "4xl" }}
+        mt={50}
+      >
         {title && title}
       </Heading>
       <Image

@@ -20,6 +20,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Avatar,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -32,10 +33,14 @@ import { useLogoutMutation } from "../slices/userApiSlice";
 import { logout } from "../slices/authSlice";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
+import dbClient from "../services/db-client";
+import { setImage } from "../slices/userProfileImageSlice";
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
   const { userInfo } = useSelector((state: any) => state.auth);
+  const { userImage } = useSelector((state: any) => state.image);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -51,6 +56,23 @@ export default function WithSubnavigation() {
       toast.error(err?.message || "An error occured while logging out");
     }
   };
+
+  const getUserImage = async () => {
+    if (userInfo) {
+      const res = await dbClient.get("/image", {
+        params: {
+          userId: userInfo._id,
+        },
+        withCredentials: true,
+      });
+      console.log(res.data.myFile);
+      dispatch(setImage({ ...res.data }));
+    }
+  };
+
+  useEffect(() => {
+    getUserImage();
+  }, []);
 
   return (
     <Box position={"fixed"} top={0} left={0} right={0} zIndex={9999999}>
@@ -103,6 +125,7 @@ export default function WithSubnavigation() {
         >
           {userInfo ? (
             <Flex align={"center"} gap={5}>
+              <Avatar src={userImage.myFile} size={"sm"} />
               <Text
                 display={{ base: "none", md: "block" }}
                 as={RouterLink}

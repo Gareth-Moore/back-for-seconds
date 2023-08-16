@@ -161,3 +161,7 @@ interface Comment {
   comment: string;
   _id: string;
 }
+
+interface NewImage {
+  myFile: string;
+}

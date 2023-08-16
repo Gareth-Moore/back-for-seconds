@@ -9,6 +9,7 @@ import {
   Box,
   FormControl,
   FormLabel,
+  Center,
   Input,
   InputGroup,
   HStack,
@@ -20,36 +21,37 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useUpdateUserMutation } from "../slices/userApiSlice";
+import { BsUpload } from "react-icons/bs";
+import convertToBase64 from "../services/convert-image";
+import dbClient from "../services/db-client";
+import { setImage } from "../slices/userProfileImageSlice";
 
 const ProfileScreen = () => {
-  const [showPassword, setShowPassword] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [uploadImage, setUploadImage] = useState({ myFile: "", userId: "" });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state: any) => state.auth);
+  // const { userImage } = useSelector((state: any) => state.image);
 
   const [updateProfile] = useUpdateUserMutation();
 
   useEffect(() => {
     setFirstName(userInfo.firstName);
     setLastName(userInfo.lastName);
-    setEmail(userInfo.email);
   }, [userInfo.setName, userInfo.setEmail]);
 
   const submitHandler = async (event: FormEvent) => {
     event.preventDefault();
+    console.log(event.target);
     try {
       const res = await updateProfile({
         _id: userInfo._id,
         firstName,
         lastName,
-        email,
-        password,
       }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate("/");
@@ -57,6 +59,32 @@ const ProfileScreen = () => {
     } catch (error: any) {
       console.log(error.message);
     }
+    try {
+      console.log(uploadImage);
+      await dbClient.put(
+        "/image",
+        { ...uploadImage, userId: userInfo._id },
+        {
+          withCredentials: true,
+        }
+      );
+      dispatch(
+        setImage({ myFile: uploadImage.myFile, userId: uploadImage.userId })
+      );
+      console.log("posted");
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
+  const handleOnChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    const base64 = await convertToBase64(file);
+    setUploadImage({
+      ...uploadImage,
+      myFile: base64 as string,
+      userId: userInfo._id,
+    });
   };
 
   return (
@@ -95,6 +123,39 @@ const ProfileScreen = () => {
                 </Text>
               </Stack>
               <Stack spacing={4}>
+                <Center>
+                  <label htmlFor="file-input">
+                    <Box
+                      mb={5}
+                      w="80px"
+                      h="80px"
+                      borderRadius="50%"
+                      bg="red.400"
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                      cursor="pointer"
+                      border={"2px solid white"}
+                      outline={`5px solid #F56565`}
+                    >
+                      <BsUpload size={50} color={"white"} />{" "}
+                    </Box>
+                  </label>
+                  <Input
+                    id="file-input"
+                    type="file"
+                    w="0"
+                    h="0"
+                    opacity="0"
+                    position="absolute"
+                    onChange={handleOnChange}
+                  />
+                </Center>
+                <Text textAlign={"center"}>Upload a profile image</Text>
+                <Text textAlign={"center"} mt={-5} fontSize={"sm"}>
+                  File types: .jpg, .png, .jpeg
+                </Text>
+
                 <HStack>
                   <Box>
                     <FormControl id="firstName" isRequired>
@@ -115,32 +176,7 @@ const ProfileScreen = () => {
                     </FormControl>
                   </Box>
                 </HStack>
-                <FormControl id="email" isRequired>
-                  <FormLabel>Email address</FormLabel>
-                  <Input
-                    type="email"
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </FormControl>
-                <FormControl id="password" isRequired>
-                  <FormLabel>Password</FormLabel>
-                  <InputGroup>
-                    <Input
-                      type={showPassword ? "text" : "password"}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <InputRightElement h={"full"}>
-                      <Button
-                        variant={"ghost"}
-                        onClick={() =>
-                          setShowPassword((showPassword) => !showPassword)
-                        }
-                      >
-                        {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                      </Button>
-                    </InputRightElement>
-                  </InputGroup>
-                </FormControl>
+
                 <Stack spacing={10} pt={2}>
                   <Button
                     loadingText="Submitting"

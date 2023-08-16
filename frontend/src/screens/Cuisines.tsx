@@ -4,10 +4,6 @@ import dbClient from "../services/db-client";
 import convertToBase64 from "../services/convert-image";
 import { useSelector } from "react-redux";
 
-interface NewImage {
-  myFile: string;
-}
-
 const Cuisines = () => {
   const [postImage, setPostImage] = useState({ myFile: "" });
   const { userInfo } = useSelector((state: any) => state.auth);
@@ -31,8 +27,8 @@ const Cuisines = () => {
     createImage(postImage);
   };
 
-  const handleFileUpload = async (e: any) => {
-    const file = e.target.files[0];
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
     const base64 = await convertToBase64(file);
     setPostImage({ ...postImage, myFile: base64 as string });
   };

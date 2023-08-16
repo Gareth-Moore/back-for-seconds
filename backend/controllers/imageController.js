@@ -33,4 +33,24 @@ const uploadImage = asyncHandler(async (req, res) => {
   }
 });
 
-export { uploadImage, getImages };
+// description:   Upload image
+// method:        POST
+// route:         /api/image
+// access:        Private
+const updateImage = asyncHandler(async (req, res) => {
+  const body = req.body;
+  const image = await Image.findOne({ userId: body.userId });
+  if (image) {
+    try {
+      image.myFile = body.myFile;
+      await image.save();
+      return res.status(201).json({ message: "Image updated" });
+    } catch {
+      return res.status(409).json({ message: "Image failed to update" });
+    }
+  } else {
+    return res.status(400).json({ message: "No image in request" });
+  }
+});
+
+export { uploadImage, getImages, updateImage };

@@ -3,4 +3,4 @@ implement deleting comments if you have time
 Cleanup all comments (especially the ChatGPT/pumba ones)
 delete all console logs too
 create functionality to add ingredients to shopping list from recipe card
-
+add pictures to comments

@@ -2,6 +2,7 @@ import { Button, Image } from "@chakra-ui/react";
 import { useState } from "react";
 import dbClient from "../services/db-client";
 import convertToBase64 from "../services/convert-image";
+import { useSelector } from "react-redux";
 
 interface NewImage {
   myFile: string;
@@ -9,10 +10,19 @@ interface NewImage {
 
 const Cuisines = () => {
   const [postImage, setPostImage] = useState({ myFile: "" });
+  const { userInfo } = useSelector((state: any) => state.auth);
 
   const createImage = async (newImage: NewImage) => {
     try {
-      await dbClient.post("/image", newImage, { withCredentials: true });
+      const res = await dbClient.post(
+        "/image",
+        { ...newImage, userId: userInfo._id },
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(res);
+      console.log("posted");
     } catch (error) {}
   };
 

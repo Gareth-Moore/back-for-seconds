@@ -11,9 +11,7 @@ import {
   FormLabel,
   Center,
   Input,
-  InputGroup,
   HStack,
-  InputRightElement,
   Stack,
   Button,
   Heading,
@@ -35,7 +33,6 @@ const ProfileScreen = () => {
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state: any) => state.auth);
-  // const { userImage } = useSelector((state: any) => state.image);
 
   const [updateProfile] = useUpdateUserMutation();
 
@@ -46,7 +43,6 @@ const ProfileScreen = () => {
 
   const submitHandler = async (event: FormEvent) => {
     event.preventDefault();
-    console.log(event.target);
     try {
       const res = await updateProfile({
         _id: userInfo._id,
@@ -60,7 +56,6 @@ const ProfileScreen = () => {
       console.log(error.message);
     }
     try {
-      console.log(uploadImage);
       await dbClient.put(
         "/image",
         { ...uploadImage, userId: userInfo._id },
@@ -71,7 +66,6 @@ const ProfileScreen = () => {
       dispatch(
         setImage({ myFile: uploadImage.myFile, userId: uploadImage.userId })
       );
-      console.log("posted");
     } catch (error: any) {
       console.log(error.message);
     }

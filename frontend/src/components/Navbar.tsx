@@ -9,7 +9,6 @@ import {
   Button,
   Stack,
   Collapse,
-  Icon,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -22,12 +21,7 @@ import {
   MenuList,
   Avatar,
 } from "@chakra-ui/react";
-import {
-  HamburgerIcon,
-  CloseIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
-} from "@chakra-ui/icons";
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../slices/userApiSlice";
 import { logout } from "../slices/authSlice";

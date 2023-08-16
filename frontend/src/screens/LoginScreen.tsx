@@ -18,10 +18,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
+import useUserAvatar from "../hooks/useUserAvatar";
 
 const LoginSceen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { fetchUserAvatar } = useUserAvatar();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -44,7 +46,7 @@ const LoginSceen = () => {
       }).unwrap();
 
       dispatch(setCredentials({ ...res }));
-
+      await fetchUserAvatar(res._id);
       navigate("/");
     } catch (err: any) {
       toast.error(err?.data?.message || err.error);

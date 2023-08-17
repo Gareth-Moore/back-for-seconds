@@ -1,5 +1,3 @@
-import { toast } from "react-toastify";
-
 function convertToBase64(file: File | null) {
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader();
@@ -10,7 +8,6 @@ function convertToBase64(file: File | null) {
       };
       fileReader.onerror = (error) => {
         reject(error);
-        toast.error("Error converting file"); // delete later
       };
     }
   });

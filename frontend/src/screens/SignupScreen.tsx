@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
 import { useRegisterMutation } from "../slices/userApiSlice";
+import useUserAvatar from "../hooks/useUserAvatar";
 
 const SignupScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,6 +31,7 @@ const SignupScreen = () => {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const { fetchUserAvatar } = useUserAvatar();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -54,6 +56,7 @@ const SignupScreen = () => {
         password,
       }).unwrap();
       dispatch(setCredentials({ ...res }));
+      fetchUserAvatar(res._id);
       navigate("/");
     } catch (err: any) {
       toast.error(err?.data?.message || err.error);
@@ -68,12 +71,7 @@ const SignupScreen = () => {
       backgroundSize="cover"
       backgroundRepeat="no-repeat"
     >
-      <Flex
-        // minH={"100vh"}
-        align={"center"}
-        justify={"center"}
-        bg={"transparent"}
-      >
+      <Flex align={"center"} justify={"center"} bg={"transparent"}>
         <form onSubmit={handleSubmit}>
           <Stack spacing={8} mx={"auto"} maxW={"lg"} py={10} px={6}>
             <Box

@@ -1,13 +1,13 @@
 // for routes that do not exist:
 const routeNotFound = (req, res, next) => {
   const error = new Error(`Not Found = ${req.originalUrl}`);
-  res.status(404); // not found
-  next(error); // call next middleware
+  res.status(404);
+  next(error);
 };
 
 // global error handler
 const globalErrorHandler = (err, req, res, next) => {
-  let statusCode = res.statusCode === 200 ? 500 : res.statusCode; // correct status code
+  let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   let message = err.message;
 
   // resource not found

@@ -53,7 +53,7 @@ const MyRecipesList = () => {
         const data = res.data;
         dispatch(setRecipes(data.recipes));
       } else if ("error" in res) {
-        const errorMessage = res.error.toString(); // Convert error to string
+        const errorMessage = res.error.toString();
         toast.error(errorMessage);
       }
     } catch (error: any) {

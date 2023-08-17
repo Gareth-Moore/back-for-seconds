@@ -3,7 +3,6 @@ import {
   Flex,
   Image,
   Text,
-  VStack,
   useBreakpointValue,
   Button,
   HStack,
@@ -92,17 +91,19 @@ const HomeScreen = () => {
               Welcome! Now that you're signed in, why not take a look around for
               some delicious recipes!
             </Text>
-            <Button
-              mt={{ base: "10px", sm: "60px" }}
-              as={Link}
-              minWidth={"100%"}
-              bg={"red.400"}
-              color={"white"}
-              _hover={{ bg: "red.500" }}
-              to="/explore-recipes"
-            >
-              Get started
-            </Button>
+            {userInfo && userInfo.firstName && (
+              <Button
+                mt={{ base: "10px", sm: "60px" }}
+                as={Link}
+                minWidth={"100%"}
+                bg={"red.400"}
+                color={"white"}
+                _hover={{ bg: "red.500" }}
+                to="/explore-recipes"
+              >
+                Get started
+              </Button>
+            )}
           </Box>
         </Box>
         <Image

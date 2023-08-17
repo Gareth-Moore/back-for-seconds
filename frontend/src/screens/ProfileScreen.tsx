@@ -10,6 +10,7 @@ import {
   FormLabel,
   Center,
   Input,
+  Image,
   HStack,
   Stack,
   Button,
@@ -116,39 +117,68 @@ const ProfileScreen = () => {
                 </Text>
               </Stack>
               <Stack spacing={4}>
-                <Center>
-                  <label htmlFor="file-input">
+                {!uploadImage.myFile ? (
+                  <>
+                    <Center>
+                      <label htmlFor="file-input">
+                        <Box
+                          mb={5}
+                          w="80px"
+                          h="80px"
+                          borderRadius="50%"
+                          bg="red.400"
+                          display="flex"
+                          justifyContent="center"
+                          alignItems="center"
+                          cursor="pointer"
+                          border={"2px solid white"}
+                          outline={`5px solid #F56565`}
+                        >
+                          <BsUpload size={50} color={"white"} />{" "}
+                        </Box>
+                      </label>
+                      <Input
+                        id="file-input"
+                        type="file"
+                        w="0"
+                        h="0"
+                        opacity="0"
+                        position="absolute"
+                        onChange={handleOnChange}
+                      />
+                    </Center>
+
+                    <Text textAlign={"center"}>Upload a profile image</Text>
+                    <Text textAlign={"center"} mt={-5} fontSize={"sm"}>
+                      File types: .jpg, .png, .jpeg
+                    </Text>
+                  </>
+                ) : (
+                  <>
                     <Box
-                      mb={5}
-                      w="80px"
-                      h="80px"
-                      borderRadius="50%"
-                      bg="red.400"
-                      display="flex"
-                      justifyContent="center"
-                      alignItems="center"
-                      cursor="pointer"
+                      w={"150px"}
+                      h={"150px"}
+                      mx={"auto"}
+                      mb={15}
+                      borderRadius={"50%"}
+                      bg={"red"}
                       border={"2px solid white"}
                       outline={`5px solid #F56565`}
+                      position="relative"
                     >
-                      <BsUpload size={50} color={"white"} />{" "}
+                      <Image
+                        src={uploadImage.myFile}
+                        w="100%"
+                        h="100%"
+                        objectFit="cover"
+                        borderRadius="50%"
+                        position="absolute"
+                        top="0"
+                        left="0"
+                      />
                     </Box>
-                  </label>
-                  <Input
-                    id="file-input"
-                    type="file"
-                    w="0"
-                    h="0"
-                    opacity="0"
-                    position="absolute"
-                    onChange={handleOnChange}
-                  />
-                </Center>
-                <Text textAlign={"center"}>Upload a profile image</Text>
-                <Text textAlign={"center"} mt={-5} fontSize={"sm"}>
-                  File types: .jpg, .png, .jpeg
-                </Text>
-
+                  </>
+                )}
                 <HStack>
                   <Box>
                     <FormControl id="firstName" isRequired>

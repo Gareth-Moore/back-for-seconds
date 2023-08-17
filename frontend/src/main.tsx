@@ -41,7 +41,6 @@ const router = createBrowserRouter(
   )
 );
 
-// Define variant styles for focus ring
 const variantOutlined = () => ({
   field: {
     _focus: {
@@ -69,7 +68,7 @@ const variantFlushed = () => ({
   },
 });
 
-// Create the Chakra UI theme
+// Chakra UI theme
 export const theme = extendTheme({
   fonts: {
     heading: "Montserrat, sans-serif",
@@ -81,7 +80,6 @@ export const theme = extendTheme({
   },
   styles: {
     global: {
-      // Create a CSS variable with the focus ring color desired.
       ":host,:root": {
         "--chakra-ui-focus-ring-color": "#F56565",
       },

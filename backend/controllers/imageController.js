@@ -49,7 +49,12 @@ const updateImage = asyncHandler(async (req, res) => {
       return res.status(409).json({ message: "Image failed to update" });
     }
   } else {
-    return res.status(400).json({ message: "No image in request" });
+    try {
+      await Image.create({ myFile: body.myFile, userId: body.userId });
+      return res.status(201).json({ message: "Image uploaded" });
+    } catch {
+      return res.status(409).json({ message: "Image failed to upload" });
+    }
   }
 });
 

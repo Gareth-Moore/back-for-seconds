@@ -14,7 +14,6 @@ const Cuisines = () => {
   const [isHovered, setIsHovered] = useState(-1);
 
   const cuisines = [
-    // ... (previous entries)
     {
       cuisine: "Eastern European",
       image: "./src/assets/eastern european.jpg",
@@ -148,9 +147,8 @@ const Cuisines = () => {
         mx={"auto"}
         mt={25}
         mb={15}
-        gap={{ base: 5, xl: "1px" }}
-        bg={{ xl: "black" }}
-        border={{ xl: "1px solid black" }}
+        columnGap={{ base: 2 }}
+        rowGap={{ base: 2 }}
         templateColumns={{
           base: "300px",
           md: "300px 300px",
@@ -173,7 +171,7 @@ const Cuisines = () => {
               gap={0}
               boxSizing="border-box"
               borderRadius={{ base: 15, xl: 0 }}
-              border={{ base: "", lg: "1px solid lightgray", xl: "none" }}
+              border={{ base: "", lg: "1px solid lightgray" }}
               _hover={{
                 color: "white",
                 bg: "red.400",

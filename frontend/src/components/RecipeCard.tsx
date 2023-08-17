@@ -30,6 +30,8 @@ import { useDispatch } from "react-redux";
 import { setRecipes } from "../slices/currentRecipesSlice";
 import ContainerWhite from "./ContainerWhite";
 import ContainerBlank from "./ContainerBlank";
+import useAddAllShoppingList from "../hooks/useAddAllShoppingList";
+import { setShoppingList } from "../slices/shoppingListSlice";
 
 const RecipeCard = () => {
   const [useMetric, setUseMetric] = useState(true);
@@ -62,6 +64,15 @@ const RecipeCard = () => {
     const boxElement = document.querySelector("#recipeBox");
     if (boxElement) {
       boxElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const onAddIngredients = async () => {
+    try {
+      await useAddAllShoppingList(recipe.extendedIngredients);
+      toast.success("Items added to your shopping list");
+    } catch (error: any) {
+      console.log(error.message);
     }
   };
 
@@ -269,6 +280,7 @@ const RecipeCard = () => {
                 {useMetric ? "In imperial" : "In metric"}
               </Button>
               <Button
+                onClick={onAddIngredients}
                 mt={5}
                 bg={"red.400"}
                 color={"white"}

@@ -44,6 +44,25 @@ const addToShoppingList = asyncHandler(async (req, res) => {
   }
 });
 
+// description:   Add to shopping list
+// method:        POST
+// route:         /api/shopping-list/addall
+// access:        Private
+const addAllToShoppingList = asyncHandler(async (req, res) => {
+  console.log("fuck cheese");
+  const ingredients = req.body;
+  const user = await User.findOne({ email: req.user.email });
+  if (user) {
+    user.shoppingList = [...user.shoppingList, ...ingredients.ingredients];
+    await user.save();
+    res.status(200).json({ shoppingList: user.shoppingList });
+  } else {
+    res.status(404).json({ message: "User not found" });
+  }
+
+  res.status(200).json(ingredients.ingredients);
+});
+
 // description:   Delete item from shopping list by ID
 // method:        DELETE
 // route:         /api/shopping-list
@@ -70,4 +89,9 @@ const deleteFromShoppingList = asyncHandler(async (req, res) => {
   }
 });
 
-export { getShoppingList, addToShoppingList, deleteFromShoppingList };
+export {
+  getShoppingList,
+  addToShoppingList,
+  deleteFromShoppingList,
+  addAllToShoppingList,
+};

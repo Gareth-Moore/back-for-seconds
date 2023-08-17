@@ -37,7 +37,7 @@ const router = createBrowserRouter(
         <Route path="/my-recipes" element={<MyRecipes />} />
         <Route path="/shopping-list" element={<MyShopping />} />
         <Route path="/cuisines" element={<Cuisines />} />
-        <Route path="/cuisines/results" element={<DisplayCuisines />} />
+        <Route path="/cuisine/results" element={<DisplayCuisines />} />
         {/*ADD TO NEW ROUTE IN useEffect: window.scrollTo(0, 0); */}
       </Route>
     </Route>

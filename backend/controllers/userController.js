@@ -105,7 +105,6 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // access:        Private
 const updateUserProfile = asyncHandler(async (req, res) => {
   simulateError(false);
-  console.log("here");
   const user = await User.findById(req.user._id);
 
   if (user) {

@@ -9,7 +9,7 @@ const useSearchRecipes = async (search: string) => {
     const response = await apiClient.get<Results>("/recipes/complexSearch", {
       params: {
         query: search,
-        number: 10,
+        number: 12,
       },
     });
     return { results: response.data.results };

@@ -14,6 +14,10 @@ interface ApiResponse {
   recipes: BasicRecipe[];
 }
 
+interface ApiResponseResults {
+  results: BasicRecipe[];
+}
+
 interface FullRecipe {
   vegetarian?: boolean;
   vegan?: boolean;

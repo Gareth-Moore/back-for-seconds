@@ -4,9 +4,12 @@ import {
   getShoppingList,
   addToShoppingList,
   deleteFromShoppingList,
+  addAllToShoppingList,
 } from "../controllers/shoppingListController.js";
 
 const router = express.Router();
+
+router.route("/addall").post(protect, addAllToShoppingList);
 
 router
   .route("/")

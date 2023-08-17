@@ -16,7 +16,6 @@ const useRecipeById = async (search: string) => {
         },
       }
     );
-    console.log("here");
     console.log(res);
     if (res) {
       return res?.data?.results;

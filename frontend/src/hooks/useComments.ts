@@ -1,4 +1,3 @@
-import { toast } from "react-toastify";
 import dbClient from "../services/db-client";
 
 const useComments = (id: string) => {

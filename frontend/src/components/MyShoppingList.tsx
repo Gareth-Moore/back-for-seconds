@@ -29,7 +29,6 @@ const MyRecipesList = () => {
   const [isHovered, setIsHovered] = useState(-1);
 
   const dispatch = useDispatch();
-  dispatch;
 
   const toggleList = () => {
     if (!isLargerThanLg) {

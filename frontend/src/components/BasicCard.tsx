@@ -1,7 +1,6 @@
 import { VStack, Text, Image, Flex, Box } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import useRecipeById from "../hooks/useRecipeById";
-import { toast } from "react-toastify";
 
 interface Props {
   id: number;

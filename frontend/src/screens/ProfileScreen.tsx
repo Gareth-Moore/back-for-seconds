@@ -37,6 +37,8 @@ const ProfileScreen = () => {
   const [updateProfile] = useUpdateUserMutation();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     setFirstName(userInfo.firstName);
     setLastName(userInfo.lastName);
   }, [userInfo.setName, userInfo.setEmail]);

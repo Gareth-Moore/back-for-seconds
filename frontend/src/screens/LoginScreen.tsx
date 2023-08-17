@@ -32,6 +32,7 @@ const LoginSceen = () => {
   const { userInfo } = useSelector((state: any) => state.auth);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (userInfo) {
       navigate("/");
     }

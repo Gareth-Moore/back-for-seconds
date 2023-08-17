@@ -1,6 +1,6 @@
 import { Text } from "@chakra-ui/react";
 import Header from "../components/Header";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BasicCard from "../components/BasicCard";
 import BasicCardGrid from "../components/BasicCardGrid";
 import SearchBar from "../components/SearchBar";
@@ -35,6 +35,10 @@ const SearchRecipes = () => {
     }
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

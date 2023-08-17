@@ -10,9 +10,14 @@ import {
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const HomeScreen = () => {
   const { userInfo } = useSelector((state: any) => state.auth);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Flex

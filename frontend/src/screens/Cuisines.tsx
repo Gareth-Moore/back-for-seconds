@@ -8,10 +8,14 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Header from "../components/Header";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Cuisines = () => {
   const [isHovered, setIsHovered] = useState(-1);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const cuisines = [
     {

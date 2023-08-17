@@ -41,6 +41,7 @@ const SignupScreen = () => {
   const [register] = useRegisterMutation();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (userInfo) {
       navigate("/");
     }

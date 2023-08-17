@@ -1,4 +1,4 @@
-import { VStack, Text, Image, Flex } from "@chakra-ui/react";
+import { VStack, Text, Image, Flex, Box } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import useRecipeById from "../hooks/useRecipeById";
 import { toast } from "react-toastify";
@@ -26,14 +26,21 @@ const BasicCard = ({ id, title, image }: Props) => {
   return (
     <VStack
       key={id}
+      position={"relative"}
       w={"300px"}
       h={"390px"}
       bg={"white"}
-      borderBottomLeftRadius={15}
+      borderRadius={15}
       border={"1px solid lightgray"}
       onClick={handleClick}
     >
-      <Image src={image} h={"300px"} objectFit={"cover"} />
+      <Image
+        src={image}
+        h={"300px"}
+        objectFit={"cover"}
+        borderTopLeftRadius={15}
+        borderTopRightRadius={15}
+      />
       <Flex h={"70px"} align={"center"}>
         <Text
           color={"gray.700"}
@@ -47,6 +54,17 @@ const BasicCard = ({ id, title, image }: Props) => {
           {title}
         </Text>
       </Flex>
+      <Box
+        _hover={{ opacity: "1" }}
+        borderRadius={15}
+        w={"300px"}
+        h={"390px"}
+        left={"0"}
+        top={"0"}
+        opacity={"0"}
+        position={"absolute"}
+        border={"5px solid #F56565"}
+      ></Box>
     </VStack>
   );
 };

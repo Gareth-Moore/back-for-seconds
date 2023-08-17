@@ -45,6 +45,7 @@ export default function WithSubnavigation() {
     try {
       await logoutApiCall({}).unwrap();
       dispatch(logout({}));
+
       navigate("/");
     } catch (err: any) {
       toast.error(err?.message || "An error occured while logging out");

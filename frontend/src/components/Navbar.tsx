@@ -363,4 +363,12 @@ const NAV_ITEMS: Array<NavItem> = [
     label: "My recipes",
     href: "/my-recipes",
   },
+  {
+    label: "Meal Planner",
+    href: "/meal-planner",
+  },
+  {
+    label: "Upload Recipe",
+    href: "/upload-recipe",
+  },
 ];

@@ -9,19 +9,14 @@ import {
 } from "@chakra-ui/react";
 import Header from "../components/Header";
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Cuisines = () => {
   const [isHovered, setIsHovered] = useState(-1);
-  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  const handleClick = (id: number) => {
-    const cuisine = cuisines[id].cuisine;
-  };
 
   const cuisines = [
     {
@@ -172,7 +167,6 @@ const Cuisines = () => {
             <HStack
               as={Link}
               to={`/cuisine/results?cuisine=${value.cuisine}`}
-              onClick={() => handleClick(index)}
               onMouseEnter={() => setIsHovered(index)}
               onMouseLeave={() => setIsHovered(-1)}
               cursor={"pointer"}

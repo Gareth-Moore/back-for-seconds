@@ -21,6 +21,8 @@ import MyRecipes from "./screens/MyRecipes.tsx";
 import MyShopping from "./screens/MyShoppingList.tsx";
 import Cuisines from "./screens/Cuisines.tsx";
 import DisplayCuisines from "./screens/DisplayCuisines.tsx";
+import MealPlanner from "./screens/MealPlanner.tsx";
+import UploadRecipe from "./screens/UploadRecipe.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,6 +40,8 @@ const router = createBrowserRouter(
         <Route path="/shopping-list" element={<MyShopping />} />
         <Route path="/cuisines" element={<Cuisines />} />
         <Route path="/cuisine/results" element={<DisplayCuisines />} />
+        <Route path="/meal-planner" element={<MealPlanner />} />
+        <Route path="/upload-recipe" element={<UploadRecipe />} />
         {/*ADD TO NEW ROUTE IN useEffect: window.scrollTo(0, 0); */}
       </Route>
     </Route>

@@ -31,7 +31,6 @@ import { setRecipes } from "../slices/currentRecipesSlice";
 import ContainerWhite from "./ContainerWhite";
 import ContainerBlank from "./ContainerBlank";
 import useAddAllShoppingList from "../hooks/useAddAllShoppingList";
-import { setShoppingList } from "../slices/shoppingListSlice";
 
 const RecipeCard = () => {
   const [useMetric, setUseMetric] = useState(true);

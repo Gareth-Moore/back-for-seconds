@@ -1,4 +1,4 @@
-import { VStack, Text, Box, Skeleton } from "@chakra-ui/react";
+import { VStack, Skeleton } from "@chakra-ui/react";
 
 const IngredientCardSkeleton = () => {
   return (

@@ -1,11 +1,9 @@
-import { Container, Grid, Skeleton } from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react";
 import Header from "./Header";
 import IngredientCard from "./IngredientCard";
 import SearchBar from "./SearchBar";
 import ContainerBlank from "./ContainerBlank";
 import useSearchIngredients from "../hooks/useSearchIngredients";
-import { useDispatch, useSelector } from "react-redux";
-import { setShoppingList } from "../slices/shoppingListSlice";
 import { useState } from "react";
 import IngredientCardSkeleton from "./IngredientCardSkeleton";
 

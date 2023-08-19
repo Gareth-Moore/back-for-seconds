@@ -1,4 +1,4 @@
-import { VStack, Text } from "@chakra-ui/react";
+import { VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import BasicCardGrid from "../components/BasicCardGrid";

@@ -144,10 +144,10 @@ interface AnalyzedInstructionStepEquipment {
 }
 
 interface AnalyzedInstructionStep {
-  number: number;
+  number?: number;
   step: string;
-  ingredients: AnalyzedInstructionStepIngredient[];
-  equipment: AnalyzedInstructionStepEquipment[];
+  ingredients?: AnalyzedInstructionStepIngredient[];
+  equipment?: AnalyzedInstructionStepEquipment[];
   length?: {
     number: number;
     unit: string;
@@ -155,7 +155,7 @@ interface AnalyzedInstructionStep {
 }
 
 interface AnalyzedInstruction {
-  name: string;
+  name?: string;
   steps: AnalyzedInstructionStep[];
 }
 

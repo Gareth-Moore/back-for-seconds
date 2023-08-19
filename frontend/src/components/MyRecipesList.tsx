@@ -22,6 +22,8 @@ import { useDispatch } from "react-redux";
 import { setRecipes } from "../slices/currentRecipesSlice";
 import { useDeleteUserRecipeMutation } from "../slices/userApiSlice";
 import useRecipeById from "../hooks/useRecipeById";
+import { setId, setRecipe } from "../slices/currentRecipeSlice";
+import dbClient from "../services/db-client";
 
 interface UserRecipes {
   id: number;
@@ -62,10 +64,25 @@ const MyRecipesList = () => {
   };
 
   const showSelectedRecipe = async (id: number) => {
-    try {
-      await fetchRecipeById(id);
-    } catch (error: any) {
-      toast.error(error.message);
+    const checkIdLength = id.toString();
+    if (checkIdLength.length < 14) {
+      try {
+        await fetchRecipeById(id);
+      } catch (error: any) {
+        toast.error(error.message);
+      }
+    } else {
+      try {
+        const res = await dbClient.get("/recipes", {
+          params: {
+            id: id,
+          },
+          withCredentials: true,
+        });
+        console.log({ ...res.data.recipe });
+        dispatch(setId(id));
+        dispatch(setRecipe({ ...res.data.recipe }));
+      } catch (error) {}
     }
   };
 

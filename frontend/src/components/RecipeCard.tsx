@@ -211,7 +211,7 @@ const RecipeCard = () => {
                   </Text>
                   <Text>
                     <strong>Course:</strong>{" "}
-                    {recipe.occasions[0] ? recipe.occasions[0] : "-/"}
+                    {recipe.dishTypes[0] ? recipe.dishTypes[0] : "-/"}
                   </Text>
                   <Text>
                     <strong>Cuisine:</strong>{" "}
@@ -254,30 +254,38 @@ const RecipeCard = () => {
                 recipe.extendedIngredients.map(
                   (ingredient: Ingredient, index: number) => (
                     <ListItem key={index} pl={5}>
-                      <ListIcon as={AiFillCaretRight} color={"red.400"} />{" "}
-                      {useMetric
-                        ? `${
-                            ingredient.measures.metric.amount % 1 === 0
-                              ? ingredient.measures.metric.amount
-                              : ingredient.measures.metric.amount.toFixed(2)
-                          } ${ingredient.measures.metric.unitShort} ${
-                            ingredient.originalName
-                          }`
-                        : `${
-                            ingredient.measures.us.amount % 1 === 0
-                              ? ingredient.measures.us.amount
-                              : ingredient.measures.us.amount.toFixed(2)
-                          } ${ingredient.measures.us.unitShort} ${
-                            ingredient.originalName
-                          }`}
+                      <ListIcon as={AiFillCaretRight} color={"red.400"} />
+                      {ingredient.measures
+                        ? useMetric
+                          ? `${
+                              ingredient.measures.metric.amount % 1 === 0
+                                ? ingredient.measures.metric.amount
+                                : ingredient.measures.metric.amount.toFixed(2)
+                            } ${ingredient.measures.metric.unitShort} ${
+                              ingredient.originalName
+                            }`
+                          : `${
+                              ingredient.measures.us.amount % 1 === 0
+                                ? ingredient.measures.us.amount
+                                : ingredient.measures.us.amount.toFixed(2)
+                            } ${ingredient.measures.us.unitShort} ${
+                              ingredient.originalName
+                            }`
+                        : ingredient.name === ""
+                        ? false
+                        : ingredient.name}
                     </ListItem>
                   )
                 )}
             </List>
             <HStack>
-              <Button mt={5} onClick={() => setUseMetric(!useMetric)}>
-                {useMetric ? "In imperial" : "In metric"}
-              </Button>
+              {recipe.sourceName ? (
+                <Button mt={5} onClick={() => setUseMetric(!useMetric)}>
+                  {useMetric ? "In imperial" : "In metric"}
+                </Button>
+              ) : (
+                <></>
+              )}
               <Button
                 onClick={onAddIngredients}
                 mt={5}
@@ -298,27 +306,35 @@ const RecipeCard = () => {
             <OrderedList spacing={5} pl={3}>
               {recipe.analyzedInstructions.map(
                 (instructions: AnalyzedInstruction) =>
-                  instructions.steps.map((step, index) => (
-                    <ListItem key={index} pl={5}>
-                      {step.step}
-                    </ListItem>
-                  ))
+                  instructions.steps.map((step, index) =>
+                    step.step ? (
+                      <ListItem key={index} pl={5}>
+                        {step.step}
+                      </ListItem>
+                    ) : (
+                      false
+                    )
+                  )
               )}
             </OrderedList>
-            <Divider my={50} borderTop={"1px solid gray"} />
-            <Text fontSize={"sm"} fontWeight={"bold"} color={"gray.500"}>
-              Credit: {recipe.sourceName}
-            </Text>
-            <Text
-              mb={50}
-              as="a"
-              color={"red.400"}
-              target="_blank"
-              href={recipe.sourceUrl}
-              fontSize={"sm"}
-            >
-              {recipe.sourceUrl}
-            </Text>
+            {recipe.sourceName != "" && (
+              <>
+                <Divider my={50} borderTop={"1px solid gray"} />
+                <Text fontSize={"sm"} fontWeight={"bold"} color={"gray.500"}>
+                  Credit: {recipe.sourceName}
+                </Text>
+                <Text
+                  mb={50}
+                  as="a"
+                  color={"red.400"}
+                  target="_blank"
+                  href={recipe.sourceUrl}
+                  fontSize={"sm"}
+                >
+                  {recipe.sourceUrl}
+                </Text>
+              </>
+            )}
           </ContainerBlank>
         </Box>
       )}

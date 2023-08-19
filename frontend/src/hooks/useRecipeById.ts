@@ -17,6 +17,7 @@ const useRecipeById = (_id: number) => {
       );
       dispatch(setId(_id));
       dispatch(setRecipe({ ...res.data }));
+      console.log({ ...res.data });
     } catch (error: any) {
       console.log(error.message);
     }

@@ -5,6 +5,7 @@ import userRoutes from "./routes/userRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
 import shoppingListRoutes from "./routes/shoppingListRoutes.js";
 import imageRoutes from "./routes/imageRoutes.js";
+import recipeRoutes from "./routes/recipeRoutes.js";
 import cookieParser from "cookie-parser";
 import {
   routeNotFound,
@@ -40,6 +41,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/shopping-list", shoppingListRoutes);
 app.use("/api/image", imageRoutes);
+app.use("/api/recipes", recipeRoutes);
 
 app.get("/", (req, res) => res.send("Server is ready..."));
 

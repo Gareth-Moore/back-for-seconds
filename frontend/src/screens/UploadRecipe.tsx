@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import dbClient from "../services/db-client";
 import { useUpdateRecipeMutation } from "../slices/userApiSlice";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const UploadRecipe = () => {
   const [recipe, setRecipe] = useState<FullRecipe>({
@@ -139,6 +140,7 @@ const UploadRecipe = () => {
   const { userInfo } = useSelector((state: any) => state.auth);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -260,6 +262,7 @@ const UploadRecipe = () => {
     } catch (error: any) {
       toast.error(error.data.message);
     }
+    navigate("/my-recipes");
   };
 
   const handleOnChange = async (e: React.ChangeEvent<HTMLInputElement>) => {

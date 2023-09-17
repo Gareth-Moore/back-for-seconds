@@ -15,8 +15,6 @@ const getShoppingList = asyncHandler(async (req, res) => {
   } else {
     return res.status(404).json({ message: "User not found" });
   }
-
-  return res.status(200).json("We have the list");
 });
 
 // description:   Add to shopping list

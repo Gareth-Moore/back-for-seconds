@@ -657,7 +657,7 @@ const UploadRecipe = () => {
           </Heading>
           {/* Ingredients list */}
           <Box>
-            {ingredientsArray.map((value, index) => (
+            {ingredientsArray.map((_, index) => (
               <Box
                 key={index}
                 borderRadius={0}
@@ -722,7 +722,7 @@ const UploadRecipe = () => {
           </Heading>
           {/* Instructions list */}
           <Box>
-            {instructionsArray.map((value, index) => (
+            {instructionsArray.map((_, index) => (
               <Box
                 key={index}
                 borderRadius={0}
